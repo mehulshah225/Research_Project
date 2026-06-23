@@ -1,0 +1,48 @@
+.i 9
+.o 1
+.p 40
+.type eosops
+
+111-11101 -> m=8, zeros=1, QC=511
+011111-01 -> m=8, zeros=2, QC=513
+11110110- -> m=8, zeros=2, QC=513
+1111-11-0 -> m=7, zeros=1, QC=255
+000--0001 -> m=7, zeros=6, QC=265
+0000-00-1 -> m=7, zeros=6, QC=265
+1100-0000 -> m=8, zeros=6, QC=521
+--0010000 -> m=7, zeros=6, QC=265
+01000010- -> m=8, zeros=6, QC=521
+0-0000-01 -> m=7, zeros=6, QC=265
+001-00100 -> m=8, zeros=6, QC=521
+110101-11 -> m=8, zeros=2, QC=513
+0010--000 -> m=7, zeros=6, QC=265
+0000011-0 -> m=8, zeros=6, QC=521
+00-011000 -> m=8, zeros=6, QC=521
+-0-001001 -> m=7, zeros=5, QC=263
+-0100-001 -> m=7, zeros=5, QC=263
+0--000010 -> m=7, zeros=6, QC=265
+00-100-00 -> m=7, zeros=6, QC=265
+00000--10 -> m=7, zeros=6, QC=265
+11-1-1011 -> m=7, zeros=1, QC=255
+1-10-1111 -> m=7, zeros=1, QC=255
+01-011111 -> m=8, zeros=2, QC=513
+0-1111110 -> m=8, zeros=2, QC=513
+101-01111 -> m=8, zeros=2, QC=513
+-111110-1 -> m=7, zeros=1, QC=255
+-10-11111 -> m=7, zeros=1, QC=255
+10111--11 -> m=7, zeros=1, QC=255
+-0111111- -> m=7, zeros=1, QC=255
+1-1110011 -> m=8, zeros=2, QC=513
+1--1111-1 -00----0- 1 -> Controls: 9, zeros: 0, mask_neg: 3, output_not: 1, QC=1028
+-000-0-00 1---1---- 1 -> Controls: 8, zeros: 6, mask_neg: 0, output_not: 1, QC=522
+-00-000-0 1--1---1- 1 -> Controls: 9, zeros: 6, mask_neg: 0, output_not: 1, QC=1034
+0-0-0-000 -1-1-1--- 1 -> Controls: 9, zeros: 6, mask_neg: 0, output_not: 1, QC=1034
+10-00-00- --1--1--- 1 -> Controls: 8, zeros: 5, mask_neg: 0, output_not: 1, QC=520
+000-100-- ---1---1- 1 -> Controls: 8, zeros: 5, mask_neg: 0, output_not: 1, QC=520
+111-1-1-1 ---0---0- 1 -> Controls: 8, zeros: 0, mask_neg: 2, output_not: 1, QC=514
+11-11-11- --0--0--0 1 -> Controls: 9, zeros: 0, mask_neg: 3, output_not: 1, QC=1028
+-111--111 0---00--- 1 -> Controls: 9, zeros: 0, mask_neg: 3, output_not: 1, QC=1028
+111-11-1- ---0--0-0 1 -> Controls: 9, zeros: 0, mask_neg: 3, output_not: 1, QC=1028
+
+Total Maslov Quantum Cost = 19394
+
