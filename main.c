@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
+#include <stdbool.h>
 
 #include "cube_types.h"
 #include "cube_containment.h"
@@ -12,25 +14,30 @@
 static int gNumInputs = 0;
 
 // ------------------------------------------------------------
-// Convert Cube → string of 0/1/- (G-part only)
-// ------------------------------------------------------------
+// Convert Cube → string of 0/1/- (lowest-bit is rightmost)
+// `out` must be at least `n+1` bytes.
 static void cubeToStr(const Cube *c, int n, char *out)
 {
+    if (n <= 0) {
+        out[0] = '\0';
+        return;
+    }
+
     for (int i = 0; i < n; i++) {
         int pos = n - 1 - i;
         uint32_t bit = 1u << pos;
 
-        if (c->mask & bit) out[i] = '-';
-        else out[i] = (c->bits & bit) ? '1' : '0';
+        out[i] = (c->mask & bit) ? '-' : ((c->bits & bit) ? '1' : '0');
     }
     out[n] = '\0';
 }
 
+// Write ESOP-format file from array of OutputCube.
 void writeESOPFile(const char *filename, OutputCube *arr, int count, int n)
 {
     FILE *fp = fopen(filename, "w");
     if (!fp) {
-        printf("ERROR: Could not create output file %s\n", filename);
+        fprintf(stderr, "ERROR: Could not create output file %s\n", filename);
         return;
     }
 
@@ -40,19 +47,17 @@ void writeESOPFile(const char *filename, OutputCube *arr, int count, int n)
     fprintf(fp, ".p %d\n", count);
     fprintf(fp, ".type eosops\n");
 
-    // Write each cube
+    // Write each cube (use VLA sized buffers)
     for (int k = 0; k < count; k++) {
-        char gstr[64], cstr[64];
+        char gstr[n + 1];
+        char cstr[n + 1];
 
         cubeToStr(&arr[k].g, n, gstr);
         cubeToStr(&arr[k].c, n, cstr);
 
-        // If hasNegative: print "G C 1"
         if (arr[k].hasNegative) {
             fprintf(fp, "%s %s 1\n", gstr, cstr);
-        }
-        else {
-            // Pure cube → only G
+        } else {
             fprintf(fp, "%s 1\n", gstr);
         }
     }
@@ -63,24 +68,25 @@ void writeESOPFile(const char *filename, OutputCube *arr, int count, int n)
     printf("\n[INFO] ESOP written to: %s\n", filename);
 }
 
-// OutputCube → "G" or "G C"
+// OutputCube → "G" or "G C", written into `out` (caller must provide enough space)
 static void outputCubeToStr(const OutputCube *oc, int n, char *out)
 {
-    char gStr[64], cStr[64];
+    char gStr[n + 1];
     cubeToStr(&oc->g, n, gStr);
 
     if (!oc->hasNegative) {
-        sprintf(out, "%s", gStr);
+        snprintf(out, 256, "%s", gStr);
     } else {
+        char cStr[n + 1];
         cubeToStr(&oc->c, n, cStr);
-        sprintf(out, "%s %s", gStr, cStr);
+        snprintf(out, 256, "%s %s", gStr, cStr);
     }
 }
 
 // ------------------------------------------------------------
-// Parse line into OutputCube
-// "G 1" or "G C 1"
-// ------------------------------------------------------------
+// Parse a line into an OutputCube
+// Accepts either: "G 1" or "G C 1"
+// Returns zeroed OutputCube on parse failure.
 static OutputCube parseOutputCubeLine(const char *line, int n, int id)
 {
     OutputCube oc;
@@ -88,21 +94,24 @@ static OutputCube parseOutputCubeLine(const char *line, int n, int id)
     oc.id = id;
     oc.hasNegative = false;
 
+    if (n <= 0) return oc;
+
     char buf[MAX_LINE];
     strncpy(buf, line, sizeof(buf));
-    buf[sizeof(buf)-1] = '\0';
+    buf[sizeof(buf) - 1] = '\0';
 
-    char gStr[64], cStr[64];
+    char gStr[128] = {0}, cStr[128] = {0};
     int val = 0;
 
-    int fields = sscanf(buf, "%63s %63s %d", gStr, cStr, &val);
+    // Try to read up to three tokens: gStr [, cStr] [, val]
+    int fields = sscanf(buf, "%127s %127s %d", gStr, cStr, &val);
 
     if (fields == 2) {
-        // G 1
+        // Format: "G 1" (second token is numeric)
         val = atoi(cStr);
         if (val != 1) return oc;
 
-        Cube G = {0,0};
+        Cube G = {0, 0};
         int len = (int)strlen(gStr);
         for (int i = 0; i < n && i < len; i++) {
             uint32_t bit = 1u << (n - 1 - i);
@@ -111,11 +120,11 @@ static OutputCube parseOutputCubeLine(const char *line, int n, int id)
         }
         oc.g = G;
         oc.hasNegative = false;
-    } else if (fields == 3) {
-        // G C 1
+    } else if (fields >= 3) {
+        // Format: "G C 1"
         if (val != 1) return oc;
 
-        Cube G = {0,0}, C = {0,0};
+        Cube G = {0, 0}, C = {0, 0};
         int lenG = (int)strlen(gStr);
         int lenC = (int)strlen(cStr);
 
@@ -139,7 +148,7 @@ static OutputCube parseOutputCubeLine(const char *line, int n, int id)
 }
 
 // ------------------------------------------------------------
-// Containment printing
+// Print containment relationships (debug)
 // ------------------------------------------------------------
 static void printContainments(OutputCube *arr, int count, int n)
 {
@@ -151,7 +160,7 @@ static void printContainments(OutputCube *arr, int count, int n)
                 containment_relation(&arr[i], &arr[j], n);
 
             if (cr == CONTAINS_A_B) {
-                char Ai[128], Aj[128];
+                char Ai[256], Aj[256];
                 outputCubeToStr(&arr[i], n, Ai);
                 outputCubeToStr(&arr[j], n, Aj);
                 printf("%s (cube %d) contains %s (cube %d)\n",
@@ -163,19 +172,20 @@ static void printContainments(OutputCube *arr, int count, int n)
 
 // ------------------------------------------------------------
 // Merge reduction driver
+// Repeatedly finds best merges and replaces the pair with the merged cube.
 // ------------------------------------------------------------
 static void doMergeReduction(OutputCube *arr, int *pCount, int n)
 {
     printf("\n--- Merge reduction ---\n");
 
     while (1) {
-        int i, j;
+        int i = -1, j = -1;
         OutputCube R;
 
         if (!find_best_merge(arr, *pCount, n, &i, &j, &R))
             break;
 
-        char Ai[128], Aj[128], Rstr[128];
+        char Ai[256], Aj[256], Rstr[256];
         outputCubeToStr(&arr[i], n, Ai);
         outputCubeToStr(&arr[j], n, Aj);
         outputCubeToStr(&R,      n, Rstr);
@@ -183,14 +193,16 @@ static void doMergeReduction(OutputCube *arr, int *pCount, int n)
         printf(" %s (cube %d) XOR %s (cube %d) → %s\n",
                Ai, arr[i].id, Aj, arr[j].id, Rstr);
 
-        // Build new array w/o i,j and with R appended
+        // Build new array without i,j and with R appended
         OutputCube tmp[MAX_CUBES];
         int k2 = 0;
         for (int k = 0; k < *pCount; k++) {
             if (k == i || k == j) continue;
             tmp[k2++] = arr[k];
         }
-        tmp[k2++] = R;
+        if (k2 < MAX_CUBES) {
+            tmp[k2++] = R;
+        }
 
         memcpy(arr, tmp, k2 * sizeof(OutputCube));
         *pCount = k2;
@@ -224,15 +236,15 @@ int main(int argc, char **argv)
         char *p = line;
         while (*p == ' ' || *p == '\t') p++;
 
-        if (*p == '\0' || *p == '#')
-            continue;
+        if (*p == '\0' || *p == '#') continue;
 
         if (!strncmp(p, ".i", 2)) {
-            gNumInputs = atoi(p + 2);
+            // More robust parsing for .i <num>
+            int tmp = 0;
+            if (sscanf(p, ".i %d", &tmp) == 1) gNumInputs = tmp;
             continue;
         }
-        if (!strncmp(p, ".o", 2))
-            continue;
+        if (!strncmp(p, ".o", 2)) continue;
         if (!strncmp(p, ".p", 2)) {
             startParsing = 1;
             continue;
@@ -243,34 +255,35 @@ int main(int argc, char **argv)
                 startParsing = 1;
             continue;
         }
-        if (!strncmp(p, ".e", 2))
-            break;
+        if (!strncmp(p, ".e", 2)) break;
 
-        if (!startParsing)
-            continue;
+        if (!startParsing) continue;
 
-        // Cube line
+        // Parse cube line
         OutputCube oc = parseOutputCubeLine(p, gNumInputs, count);
-        // sanity: ignore empty
-        // (pure default {0,0} + id 0 could be real cube; but ESOP never all-zero/all-dash crazy here)
-        cubes[count++] = oc;
-        if (count >= MAX_CUBES) break;
+
+        // Add into array if space remains (safe-guard)
+        if (count < MAX_CUBES) {
+            cubes[count++] = oc;
+        } else {
+            break;
+        }
     }
 
     fclose(fp);
 
     printf("Loaded %d cubes.\n", count);
 
-    // 1) Containment debug
+    // 1) Containment debug (prints relations)
     printContainments(cubes, count, gNumInputs);
 
-    // 2) Merge reduction
+    // 2) Merge reduction (in-place)
     doMergeReduction(cubes, &count, gNumInputs);
 
-    // 3) Final ESOP
+    // 3) Final ESOP (stdout)
     printf("\n# Final ESOP:\n");
     for (int i = 0; i < count; i++) {
-        char buf[128];
+        char buf[256];
         outputCubeToStr(&cubes[i], gNumInputs, buf);
         printf("%s 1\n", buf);
     }

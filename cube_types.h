@@ -4,18 +4,31 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+/* Cube:
+ * - `bits`: bit == 1 means the corresponding input is fixed to 1.
+ * - `mask`: bit == 1 means the corresponding input is a dash (don't-care).
+ * Only the lowest `n` bits are significant.
+ */
 typedef struct {
-    uint32_t bits;  // 1 where literal is fixed 1
-    uint32_t mask;  // 1 where literal is '-'
+    uint32_t bits;
+    uint32_t mask;
 } Cube;
 
+/* OutputCube: representation used by merge/containment routines. */
 typedef struct {
-    Cube g;          // positive part
-    Cube c;          // negative offset part (for mixed cubes)
+    Cube g;
+    Cube c;
     bool hasNegative;
-    int  id;         // original cube index from input
+    int id;
 } OutputCube;
 
-#endif
+/* Containment relation results (moved here so it's available project-wide). */
+typedef enum {
+    CONTAINS_NONE = 0,
+    CONTAINS_A_B  = 1, /* A contains B (A is more general) */
+    CONTAINS_B_A  = 2  /* B contains A */
+} ContainmentResult;
+
+#endif /* CUBE_TYPES_H */
 
 

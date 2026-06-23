@@ -1,68 +1,68 @@
 #include "cube_containment.h"
 #include <stdint.h>
+#include <stdbool.h>
+#include <string.h>
 
-// --------------------------------------------------------
-// Helpers
-// --------------------------------------------------------
-
-static bool is_full_dash(const Cube *c, int numInputs)
+// Helper: mask with lowest `numInputs` bits set.
+static inline uint32_t inputs_full_mask(int numInputs)
 {
-    uint32_t full = (numInputs == 32) ? 0xFFFFFFFFu : ((1u << numInputs) - 1u);
-    return (c->mask == full);
+    if (numInputs >= 32) return 0xFFFFFFFFu;
+    return ((1u << numInputs) - 1u);
 }
 
+// Fully-dash cube: every input is a dash.
+static inline bool is_full_dash(const Cube *c, int numInputs)
+{
+    return c->mask == inputs_full_mask(numInputs);
+}
+
+// True when every fixed literal (non-dash) is 0.
+// (bits & ~mask) == 0 restricted to relevant inputs.
 bool is_all_zero_or_dash(const Cube *c, int numInputs)
 {
-    for (int i = 0; i < numInputs; i++) {
-        uint32_t bit = 1u << i;
-        if (c->mask & bit) continue;      // dash
-        if (c->bits & bit) return false;  // fixed 1 → not all 0/dash
-    }
-    return true;
+    uint32_t full = inputs_full_mask(numInputs);
+    return (c->bits & ~c->mask & full) == 0u;
 }
 
+// True when every fixed literal (non-dash) is 1.
 bool is_all_one_or_dash(const Cube *c, int numInputs)
 {
-    for (int i = 0; i < numInputs; i++) {
-        uint32_t bit = 1u << i;
-        if (c->mask & bit) continue;        // dash
-        if (!(c->bits & bit)) return false; // fixed 0 → not all 1/dash
-    }
-    return true;
+    uint32_t full = inputs_full_mask(numInputs);
+    return ((~c->bits) & ~c->mask & full) == 0u;
 }
 
-static int literal_count(const Cube *c, int numInputs)
+// Number of fixed literals (non-dash).
+static inline int literal_count(const Cube *c, int numInputs)
 {
+    uint32_t full = inputs_full_mask(numInputs);
+    uint32_t fixed = (~c->mask) & full;
+#if defined(__GNUC__) || defined(__clang__)
+    return __builtin_popcount(fixed);
+#else
     int cnt = 0;
-    for (int i = 0; i < numInputs; i++) {
-        if (!(c->mask & (1u << i)))
-            cnt++;
-    }
+    while (fixed) { cnt += (fixed & 1u); fixed >>= 1; }
     return cnt;
+#endif
 }
 
-static bool literals_match(const Cube *large,
-                           const Cube *small,
-                           int numInputs)
+// Check whether every literal fixed in `small` is fixed in `large`
+// and their values match. Uses bit ops (no loops).
+static inline bool literals_match(const Cube *large,
+                                  const Cube *small,
+                                  int numInputs)
 {
-    for (int i = 0; i < numInputs; i++) {
-        uint32_t bit = 1u << i;
+    uint32_t full = inputs_full_mask(numInputs);
+    uint32_t s_fixed = (~small->mask) & full; // positions small fixes
 
-        bool sDash = (small->mask & bit);
-        if (sDash) continue;
+    // If large leaves any of those positions dashed, fail.
+    if (s_fixed & large->mask) return false;
 
-        bool sVal  = (small->bits & bit) != 0;
-        bool lDash = (large->mask & bit) != 0;
-        bool lVal  = (large->bits & bit) != 0;
-
-        if (lDash) return false;
-        if (lVal != sVal) return false;
-    }
-    return true;
+    // Values must agree on the fixed positions.
+    return (((large->bits ^ small->bits) & s_fixed) == 0u);
 }
 
 // --------------------------------------------------------
-// PURE CUBE CONTAINMENT — your original semantics
+// PURE CUBE CONTAINMENT — original semantics retained
 // --------------------------------------------------------
 
 ContainmentResult pure_cube_containment(
@@ -77,7 +77,7 @@ ContainmentResult pure_cube_containment(
     bool B_one  = is_all_one_or_dash(B, numInputs);
 
     // --------------------------------------------------------
-    // FULL-DASH BEHAVIOR (your semantics: more specific contains)
+    // FULL-DASH BEHAVIOR (semantics: more specific contains)
     // --------------------------------------------------------
 
     // A is full dash: only "contains" B if B is also full dash.
@@ -134,14 +134,11 @@ ContainmentResult containment_relation(
     bool Bneg = B->hasNegative;
 
     // For the current flow all input cubes are PURE,
-    // and merges only add C; you asked containment for
-    // PURE+PURE debugging, so we keep it simple:
+    // and merges only add C; containment debugging focuses on pure-only.
     if (!Aneg && !Bneg) {
         return pure_cube_containment(AG, BG, numInputs);
     }
 
-    // If you later want full mixed containment, we can
-    // extend here, but right now we return NONE so
-    // debug output is on pure-only part.
+    // If you later want full mixed containment, extend here.
     return CONTAINS_NONE;
 }
