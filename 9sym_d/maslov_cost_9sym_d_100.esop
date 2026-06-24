@@ -1,0 +1,108 @@
+# EXORCISM-4 output for command line arguments: "-q0 -v0 C:\Users\Fizz Local\Desktop\EOSOPS tests\9sym_d_100.pla"
+# Minimization performed Thu Aug 21 14:52:18 2014
+# Initial statistics: Cubes = 90  Literals = 636
+# Final   statistics: Cubes = 52  Literals = 377
+# Input file reading and variable reordering time = 0.00 sec
+# Cover generation and ESOP minimization time = 0.02 sec
+.i 9
+.o 1
+.p 52
+.type esop
+ESOP: 111-11101 -> 509
+ESOP: 011111-01 -> 509
+ESOP: 11110110- -> 509
+ESOP: 1111-11-0 -> 253
+ESOP: 000--0001 -> 253
+ESOP: 0000-00-1 -> 253
+ESOP: 1100-0000 -> 509
+ESOP: --0010000 -> 253
+ESOP: 01000010- -> 509
+ESOP: 0-0000-01 -> 253
+ESOP: 001-00100 -> 509
+ESOP: 110101-11 -> 509
+ESOP: 0010--000 -> 253
+ESOP: 0000011-0 -> 509
+ESOP: 00-011000 -> 509
+ESOP: -0-001001 -> 253
+ESOP: -0100-001 -> 253
+ESOP: 0--000010 -> 253
+ESOP: 00-100-00 -> 253
+ESOP: 00000--10 -> 253
+ESOP: 11-1-1011 -> 253
+ESOP: 1-10-1111 -> 253
+ESOP: 01-011111 -> 509
+ESOP: 0-1111110 -> 509
+ESOP: 101-01111 -> 509
+ESOP: -111110-1 -> 253
+ESOP: -10-11111 -> 253
+ESOP: 10111--11 -> 253
+ESOP: -0111111- -> 253
+ESOP: 1-1110011 -> 509
+PSE: 1--1111-1 -00----0- -> 144
+PSE: -000-0-00 1---1---- -> 130
+PSE: -00-000-0 1--1---1- -> 138
+PSE: 0-0-0-000 -1-1-1--- -> 138
+PSE: 10-00-00- --1--1--- -> 130
+PSE: 000-100-- ---1---1- -> 130
+PSE: 111-1-1-1 ---0---0- -> 134
+PSE: 11-11-11- --0--0--0 -> 144
+PSE: -111--111 0---00--- -> 144
+PSE: 111-11-1- ---0--0-0 -> 144
+
+TOTAL MASLOV COST = 12294
+PS D:\gitrepos\Research_Project> gcc maslovCalculator.c -o maslov
+PS D:\gitrepos\Research_Project> .\maslov.exe .\9sym_d_100.esop  
+ESOP: 11101-101 -> 513
+ESOP: 111-11101 -> 511
+ESOP: 100111101 -> 1027
+ESOP: 111-1-1-1 -> 125
+ESOP: 1--1111-1 -> 125
+ESOP: 011111-01 -> 513
+ESOP: 11110110- -> 513
+ESOP: 10100100- -> 519
+ESOP: 1111-11-0 -> 255
+ESOP: 100100010 -> 1033
+ESOP: 00011001- -> 519
+ESOP: -00-000-0 -> 137
+ESOP: 000-100-- -> 135
+ESOP: 000--0001 -> 265
+ESOP: 0000-00-1 -> 265
+ESOP: -000-0-00 -> 137
+ESOP: 1100-0000 -> 521
+ESOP: --0010000 -> 265
+ESOP: 100010-00 -> 521
+ESOP: 01000010- -> 521
+ESOP: 0-0000-01 -> 265
+ESOP: 010101000 -> 1033
+ESOP: 110110110 -> 1027
+ESOP: 0-0-0-000 -> 137
+ESOP: 001-00100 -> 521
+ESOP: 110101-11 -> 513
+ESOP: 11-11-11- -> 125
+ESOP: 0110000-0 -> 521
+ESOP: 0010--000 -> 265
+ESOP: 0000011-0 -> 521
+ESOP: 00-011000 -> 521
+ESOP: -0-001001 -> 263
+ESOP: -0100-001 -> 263
+ESOP: 10-00-00- -> 135
+ESOP: 0--000010 -> 265
+ESOP: 00-100-00 -> 265
+ESOP: 00000--10 -> 265
+ESOP: 011100111 -> 1027
+ESOP: 111011010 -> 1027
+ESOP: 111-11-1- -> 125
+ESOP: 11-1-1011 -> 255
+ESOP: 1-10-1111 -> 255
+ESOP: 01-011111 -> 513
+ESOP: 0-1111110 -> 513
+ESOP: 101-01111 -> 513
+ESOP: -111110-1 -> 255
+ESOP: -10-11111 -> 255
+ESOP: 10111--11 -> 255
+ESOP: -0111111- -> 255
+ESOP: 1-1110011 -> 513
+ESOP: -111--111 -> 125
+ESOP: --------- -> 1
+
+TOTAL MASLOV COST = 21212
