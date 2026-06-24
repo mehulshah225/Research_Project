@@ -46,7 +46,8 @@ int pse_cost(const char *P, const char *Q) {
 // ESOP cost model
 int esop_cost(const char *cube) {
     int controls = count_fixed_controls(cube);
-    return toffoli_cost(controls);
+    int neg = count_negations(cube);
+    return toffoli_cost(controls) + 2 * neg;
 }
 
 int main(int argc, char *argv[]) {
