@@ -1,8 +1,0 @@
-.i 9
-.o 1
-.p 1
-.type eosops
-1-1111111 -1------- 1
-.e
-
-1-1111111 -1------- 1 -> Controls: 9, zeros: 0, mask_neg: 0, output_not: 1, QC=1022
