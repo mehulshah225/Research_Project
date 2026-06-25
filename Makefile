@@ -1,15 +1,34 @@
 CC = gcc
-CFLAGS = -O3
+CFLAGS = -O3 -Wall
 
-TARGETS = esop_min maslov
+SRC_DIR = main_code
 
-all: $(TARGETS)
+ESOP_SRC = \
+	$(SRC_DIR)/main.c \
+	$(SRC_DIR)/cube_containment.c \
+	$(SRC_DIR)/cube_merge.c
 
-esop_min: main_code/esop_min.c
-	$(CC) $(CFLAGS) main_code/esop_min.c -o esop_min
+ESOP_HDR = \
+	$(SRC_DIR)/cube_containment.h \
+	$(SRC_DIR)/cube_merge.h \
+	$(SRC_DIR)/cube_types.h
 
-maslov: maslov_calculator/maslov.c
-	$(CC) $(CFLAGS) maslov_calculator/maslov.c -o maslov
+all: esop_min maslov
 
+# -------------------------
+# Build ESOP optimizer
+# -------------------------
+esop_min: $(ESOP_SRC) $(ESOP_HDR)
+	$(CC) $(CFLAGS) $(ESOP_SRC) -o esop_min
+
+# -------------------------
+# Build Maslov cost model
+# -------------------------
+maslov:
+	$(CC) $(CFLAGS) maslovCalculator/maslovCalculator.c -o maslov
+
+# -------------------------
+# Clean
+# -------------------------
 clean:
-	rm -f $(TARGETS)
+	rm -f esop_min maslov
