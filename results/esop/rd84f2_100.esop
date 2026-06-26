@@ -1,0 +1,19 @@
+# EXORCISM-4 output for command line arguments: "-q0 -v0 /home/mehul/Mehul/gitrepos/Research_Project/benchmarks/rd84f2/rd84f2_100.pla"
+# Minimization performed Thu Jun 25 17:13:05 2026
+# Initial statistics: Cubes = 8  Literals = 8
+# Final   statistics: Cubes = 8  Literals = 8
+# Input file reading and variable reordering time = 0.00 sec
+# Cover generation and ESOP minimization time = 0.00 sec
+.i 8
+.o 1
+.p 8
+.type esop
+------0- 1
+-0------ 1
+-------0 1
+0------- 1
+-----0-- 1
+--0----- 1
+----0--- 1
+---0---- 1
+.e

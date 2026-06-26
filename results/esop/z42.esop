@@ -1,0 +1,18 @@
+# EXORCISM-4 output for command line arguments: "-q0 -v0 /home/mehul/Mehul/gitrepos/Research_Project/benchmarks/z42/z42.pla"
+# Minimization performed Thu Jun 25 17:18:39 2026
+# Initial statistics: Cubes = 7  Literals = 34
+# Final   statistics: Cubes = 7  Literals = 31
+# Input file reading and variable reordering time = 0.00 sec
+# Cover generation and ESOP minimization time = 0.00 sec
+.i 7
+.o 1
+.p 7
+.type esop
+-0-001- 1
+-0100-- 1
+-00-00- 1
+1000011 1
+00-1010 1
+00110-0 1
+------- 1
+.e
