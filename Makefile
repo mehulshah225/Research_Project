@@ -22,6 +22,12 @@ esop_min: $(ESOP_SRC) $(ESOP_HDR)
 	$(CC) $(CFLAGS) $(ESOP_SRC) -o esop_min
 
 # -------------------------
+# Build final parser
+# -------------------------
+final_parser:
+	$(CC) $(CFLAGS) main_code/final_parser.c -o final_parser
+
+# -------------------------
 # Build Maslov cost model
 # -------------------------
 maslov:
