@@ -1,5 +1,5 @@
 # EXORCISM-4 output for command line arguments: "-q0 -v0 /home/mehul/Mehul/gitrepos/Research_Project/benchmarks/sym10_d/sym10_d_100.pla"
-# Minimization performed Thu Jun 25 17:13:21 2026
+# Minimization performed Sat Jun 27 15:10:49 2026
 # Initial statistics: Cubes = 134  Literals = 1051
 # Final   statistics: Cubes = 83  Literals = 649
 # Input file reading and variable reordering time = 0.00 sec

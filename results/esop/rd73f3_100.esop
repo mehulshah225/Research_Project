@@ -1,5 +1,5 @@
 # EXORCISM-4 output for command line arguments: "-q0 -v0 /home/mehul/Mehul/gitrepos/Research_Project/benchmarks/rd73f3/rd73f3_100.pla"
-# Minimization performed Thu Jun 25 17:13:01 2026
+# Minimization performed Sat Jun 27 15:10:48 2026
 # Initial statistics: Cubes = 29  Literals = 166
 # Final   statistics: Cubes = 21  Literals = 99
 # Input file reading and variable reordering time = 0.00 sec

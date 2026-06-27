@@ -1,8 +1,8 @@
 # EXORCISM-4 output for command line arguments: "-q0 -v0 /home/mehul/Mehul/gitrepos/Research_Project/benchmarks/t481_d/t481_d_100.pla"
-# Minimization performed Thu Jun 25 17:18:33 2026
+# Minimization performed Sat Jun 27 15:15:40 2026
 # Initial statistics: Cubes = 13  Literals = 44
 # Final   statistics: Cubes = 13  Literals = 40
-# Input file reading and variable reordering time = 0.51 sec
+# Input file reading and variable reordering time = 0.48 sec
 # Cover generation and ESOP minimization time = 0.00 sec
 .i 16
 .o 1
