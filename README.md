@@ -130,7 +130,7 @@ This builds:
 
 - `esop_min` — EXORCISM-5 optimizer
 - `maslov` — quantum cost evaluator
-- 'final_parser' — final-stage EOSOPS refinement
+- `final_parser` — final-stage EOSOPS refinement
 
 Clean binaries:
 
