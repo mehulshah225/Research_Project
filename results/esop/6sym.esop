@@ -1,5 +1,5 @@
 # EXORCISM-4 output for command line arguments: "-q0 -v0 /home/mehul/Mehul/gitrepos/Research_Project/benchmarks/6sym/6sym.pla"
-# Minimization performed Sat Jun 27 15:10:46 2026
+# Minimization performed Wed Jul 01 19:11:17 2026
 # Initial statistics: Cubes = 18  Literals = 85
 # Final   statistics: Cubes = 13  Literals = 60
 # Input file reading and variable reordering time = 0.00 sec

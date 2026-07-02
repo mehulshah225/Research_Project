@@ -13,7 +13,9 @@ ESOP_HDR = \
 	$(SRC_DIR)/cube_merge.h \
 	$(SRC_DIR)/cube_types.h
 
-all: esop_min maslov
+all: esop_min maslov final_parser
+
+.PHONY: all clean
 
 # -------------------------
 # Build ESOP optimizer
@@ -24,8 +26,8 @@ esop_min: $(ESOP_SRC) $(ESOP_HDR)
 # -------------------------
 # Build final parser
 # -------------------------
-final_parser:
-	$(CC) $(CFLAGS) main_code/final_parser.c -o final_parser
+final_parser: $(SRC_DIR)/final_parser.c $(ESOP_HDR)
+	$(CC) $(CFLAGS) $(SRC_DIR)/final_parser.c -o final_parser
 
 # -------------------------
 # Build Maslov cost model

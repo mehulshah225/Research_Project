@@ -1,9 +1,9 @@
 # EXORCISM-4 output for command line arguments: "-q0 -v0 /home/mehul/Mehul/gitrepos/Research_Project/benchmarks/synth_benchmarks/f_100_200-2.pla"
-# Minimization performed Sat Jun 27 15:10:58 2026
+# Minimization performed Wed Jul 01 19:12:28 2026
 # Initial statistics: Cubes = 1244  Literals = 83595
 # Final   statistics: Cubes = 200  Literals = 13317
-# Input file reading and variable reordering time = 0.51 sec
-# Cover generation and ESOP minimization time = 0.42 sec
+# Input file reading and variable reordering time = 0.60 sec
+# Cover generation and ESOP minimization time = 0.53 sec
 .i 100
 .o 1
 .p 200
