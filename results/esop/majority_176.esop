@@ -1,0 +1,16 @@
+# EXORCISM-4 output for command line arguments: "-q0 -v0 /home/mehul/Mehul/gitrepos/Research_Project/benchmarks/majority_176/majority_176.pla"
+# Minimization performed Fri Jul 03 19:58:16 2026
+# Initial statistics: Cubes = 5  Literals = 17
+# Final   statistics: Cubes = 5  Literals = 17
+# Input file reading and variable reordering time = 0.00 sec
+# Cover generation and ESOP minimization time = 0.00 sec
+.i 5
+.o 1
+.p 5
+.type esop
+---1- 1
+11-0- 1
+0-101 1
+-0101 1
+11000 1
+.e

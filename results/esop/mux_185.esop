@@ -1,0 +1,27 @@
+# EXORCISM-4 output for command line arguments: "-q0 -v0 /home/mehul/Mehul/gitrepos/Research_Project/benchmarks/mux_185/mux_185.pla"
+# Minimization performed Fri Jul 03 19:58:20 2026
+# Initial statistics: Cubes = 16  Literals = 96
+# Final   statistics: Cubes = 16  Literals = 96
+# Input file reading and variable reordering time = 0.00 sec
+# Cover generation and ESOP minimization time = 0.00 sec
+.i 21
+.o 1
+.p 16
+.type esop
+1---------------11111 1
+--1-------------11011 1
+----1-----------10111 1
+------1---------10011 1
+--------1-------01111 1
+----------1-----01011 1
+------------1---00111 1
+--------------1-00011 1
+-1--------------11101 1
+---1------------11001 1
+-----1----------10101 1
+-------1--------10001 1
+---------1------01101 1
+-----------1----01001 1
+-------------1--00101 1
+---------------100001 1
+.e

@@ -15,8 +15,6 @@ ESOP_HDR = \
 
 all: esop_min maslov final_parser
 
-.PHONY: all clean
-
 # -------------------------
 # Build ESOP optimizer
 # -------------------------
