@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdarg.h>
 
-#define MAX_CUBES 1024
+#define MAX_CUBES 4096
 #define MAX_N 64
 #define MAX_EDGES (MAX_CUBES * MAX_CUBES)
 #define MERGE_TRACE 1
@@ -161,6 +161,10 @@ static void build_graph(void)
             int score = can_merge(i, j);
 
             if (score > 0) {
+                if (edgeCount >= MAX_EDGES) {
+                    fprintf(stderr, "Edge overflow\n");
+                    exit(1);
+                }
                 edges[edgeCount].u = i;
                 edges[edgeCount].v = j;
                 edges[edgeCount].weight = score;
@@ -205,7 +209,7 @@ static void load_file(const char *filename)
         exit(1);
     }
 
-    char line[256];
+    char line[2048];
 
     while (fgets(line, sizeof(line), fp)) {
 
@@ -225,11 +229,21 @@ static void load_file(const char *filename)
         int tokens = sscanf(line, "%63s %63s %d", cube1, cube2, &val);
 
         if (tokens == 3) {
+            if (freeCount >= MAX_CUBES) {
+                fprintf(stderr, "Too many cubes: %d (max=%d)\n",
+                        freeCount, MAX_CUBES);
+                exit(1);
+            }
             strcpy(fixed_terms[fixedCount][0], cube1);
             strcpy(fixed_terms[fixedCount][1], cube2);
             fixedCount++;
         }
         else if (tokens == 2) {
+            if (freeCount >= MAX_CUBES) {
+                fprintf(stderr, "Too many cubes: %d (max=%d)\n",
+                        freeCount, MAX_CUBES);
+                exit(1);
+            }
             strcpy(free_terms[freeCount].cube, cube1);
             freeCount++;
         }
