@@ -1,8 +1,8 @@
 # EXORCISM-4 output for command line arguments: "-q0 -v0 /home/mehul/Mehul/gitrepos/Research_Project/benchmarks/ryy6_198/ryy6_198.pla"
-# Minimization performed Fri Jul 03 19:58:46 2026
+# Minimization performed Wed Jul 29 18:42:04 2026
 # Initial statistics: Cubes = 40  Literals = 376
 # Final   statistics: Cubes = 40  Literals = 328
-# Input file reading and variable reordering time = 0.00 sec
+# Input file reading and variable reordering time = 0.01 sec
 # Cover generation and ESOP minimization time = 0.00 sec
 .i 16
 .o 1
