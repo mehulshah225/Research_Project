@@ -4,7 +4,7 @@
 #include <stdarg.h>
 
 #define MAX_CUBES 4096
-#define MAX_N 64
+#define MAX_N 256   /* was 64 - f_100 benchmarks are 100 chars + NUL; 64 overflowed every buffer */
 #define MAX_EDGES (MAX_CUBES * MAX_CUBES)
 #define MERGE_TRACE 1
 
@@ -226,7 +226,7 @@ static void load_file(const char *filename)
         char cube2[MAX_N];
         int val;
 
-        int tokens = sscanf(line, "%63s %63s %d", cube1, cube2, &val);
+        int tokens = sscanf(line, "%159s %159s %d", cube1, cube2, &val);
 
         if (tokens == 3) {
             if (freeCount >= MAX_CUBES) {

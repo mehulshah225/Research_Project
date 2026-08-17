@@ -266,7 +266,7 @@ static bool merge_pure_pure(const OutputCube *A,
     Rout->id = (mode == 1 ? A->id : B->id);
 
     if (MERGE_TRACE) {
-        char sA[128], sB[128], sR[128];
+        char sA[256], sB[256], sR[256];
         outputcube_to_str(A, n, sA, sizeof(sA));
         outputcube_to_str(B, n, sB, sizeof(sB));
         outputcube_to_str(Rout, n, sR, sizeof(sR));
@@ -494,7 +494,7 @@ bool find_best_merge(OutputCube *arr,
             int delta = cost_before - cost_after;
 
             if (MERGE_TRACE) {
-                char sA[128], sB[128], sR[128];
+                char sA[256], sB[256], sR[256];
                 outputcube_to_str(&arr[i], n, sA, sizeof(sA));
                 outputcube_to_str(&arr[j], n, sB, sizeof(sB));
                 outputcube_to_str(&tmp, n, sR, sizeof(sR));
