@@ -1,5 +1,5 @@
 # EXORCISM-4 output for command line arguments: "-q0 -v0 /home/mehul/Mehul/gitrepos/Research_Project/benchmarks/4gt_22/4gt10_22.pla"
-# Minimization performed Fri Jul 03 19:57:55 2026
+# Minimization performed Wed Jul 29 18:40:55 2026
 # Initial statistics: Cubes = 2  Literals = 6
 # Final   statistics: Cubes = 2  Literals = 6
 # Input file reading and variable reordering time = 0.00 sec
