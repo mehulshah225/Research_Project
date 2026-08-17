@@ -3,62 +3,49 @@
 #include <stdbool.h>
 #include <string.h>
 
-// Helper: mask with lowest `numInputs` bits set.
-static inline uint32_t inputs_full_mask(int numInputs)
-{
-    if (numInputs >= 32) return 0xFFFFFFFFu;
-    return ((1u << numInputs) - 1u);
-}
-
 // Fully-dash cube: every input is a dash.
 static inline bool is_full_dash(const Cube *c, int numInputs)
 {
-    return c->mask == inputs_full_mask(numInputs);
+    return c->mask == cube_inputs_full_mask(numInputs);
 }
 
 // True when every fixed literal (non-dash) is 0.
 // (bits & ~mask) == 0 restricted to relevant inputs.
 bool is_all_zero_or_dash(const Cube *c, int numInputs)
 {
-    uint32_t full = inputs_full_mask(numInputs);
-    return (c->bits & ~c->mask & full) == 0u;
+    CubeWord full = cube_inputs_full_mask(numInputs);
+    return (c->bits & ~c->mask & full) == 0;
 }
 
 // True when every fixed literal (non-dash) is 1.
 bool is_all_one_or_dash(const Cube *c, int numInputs)
 {
-    uint32_t full = inputs_full_mask(numInputs);
-    return ((~c->bits) & ~c->mask & full) == 0u;
+    CubeWord full = cube_inputs_full_mask(numInputs);
+    return ((~c->bits) & ~c->mask & full) == 0;
 }
 
 // Number of fixed literals (non-dash).
 static inline int literal_count(const Cube *c, int numInputs)
 {
-    uint32_t full = inputs_full_mask(numInputs);
-    uint32_t fixed = (~c->mask) & full;
-#if defined(__GNUC__) || defined(__clang__)
-    return __builtin_popcount(fixed);
-#else
-    int cnt = 0;
-    while (fixed) { cnt += (fixed & 1u); fixed >>= 1; }
-    return cnt;
-#endif
+    CubeWord full = cube_inputs_full_mask(numInputs);
+    CubeWord fixed = (~c->mask) & full;
+    return cube_popcount(fixed);
 }
 
 // Check whether every literal fixed in `small` is fixed in `large`
 // and their values match. Uses bit ops (no loops).
 static inline bool literals_match(const Cube *large,
-                                  const Cube *small,
-                                  int numInputs)
+                                   const Cube *small,
+                                   int numInputs)
 {
-    uint32_t full = inputs_full_mask(numInputs);
-    uint32_t s_fixed = (~small->mask) & full; // positions small fixes
+    CubeWord full = cube_inputs_full_mask(numInputs);
+    CubeWord s_fixed = (~small->mask) & full; // positions small fixes
 
     // If large leaves any of those positions dashed, fail.
     if (s_fixed & large->mask) return false;
 
     // Values must agree on the fixed positions.
-    return (((large->bits ^ small->bits) & s_fixed) == 0u);
+    return (((large->bits ^ small->bits) & s_fixed) == 0);
 }
 
 // --------------------------------------------------------

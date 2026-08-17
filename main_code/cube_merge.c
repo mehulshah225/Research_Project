@@ -8,24 +8,17 @@
 /* Enable/disable tracing at runtime (set to 1 to trace) */
 static int MERGE_TRACE = 1;
 
-/* Helper: mask with lowest `n` bits set. */
-static inline uint32_t inputs_full_mask(int n)
-{
-    if (n >= 32) return 0xFFFFFFFFu;
-    return ((1u << n) - 1u);
-}
-
 /* Small helpers to stringify cubes for trace output. Caller provides buffer. */
 static void cube_to_str(const Cube *c, int n, char *out, int out_len)
 {
     int i, pos;
-    if (n <= 0) { if (out_len>0) out[0]='\0'; return; }
-    for (i = 0; i < n && i < out_len-1; ++i) {
+    if (n <= 0) { if (out_len > 0) out[0] = '\0'; return; }
+    for (i = 0; i < n && i < out_len - 1; ++i) {
         pos = n - 1 - i;
-        uint32_t bit = 1u << pos;
+        CubeWord bit = ((CubeWord)1) << pos;
         out[i] = (c->mask & bit) ? '-' : ((c->bits & bit) ? '1' : '0');
     }
-    out[(n < out_len-1) ? n : out_len-1] = '\0';
+    out[(n < out_len - 1) ? n : out_len - 1] = '\0';
 }
 
 static void outputcube_to_str(const OutputCube *oc, int n, char *out, int out_len)
@@ -43,38 +36,28 @@ static void outputcube_to_str(const OutputCube *oc, int n, char *out, int out_le
 /* Count fixed literals (non-dash) in `C` among the lowest `n` inputs. */
 static int cdiff(const Cube *C, int n)
 {
-    uint32_t full = inputs_full_mask(n);
-    uint32_t fixed = (~C->mask) & full;
-#if defined(__GNUC__) || defined(__clang__)
-    return __builtin_popcount(fixed);
-#else
-    int k = 0;
-    while (fixed) { k += (fixed & 1u); fixed >>= 1; }
-    return k;
-#endif
+    CubeWord full = cube_inputs_full_mask(n);
+    CubeWord fixed = (~C->mask) & full;
+    return cube_popcount(fixed);
 }
 
 /* Hamming distance restricted to positions where both cubes are fixed. */
 static int hdist(const Cube *A, const Cube *B, int n)
 {
-    uint32_t full = inputs_full_mask(n);
-    uint32_t common_fixed = (~A->mask & ~B->mask) & full;
-    uint32_t diff = (A->bits ^ B->bits) & common_fixed;
-#if defined(__GNUC__) || defined(__clang__)
-    return __builtin_popcount(diff);
-#else
-    int d = 0; while (diff) { d += (diff & 1u); diff >>= 1; } return d;
-#endif
+    CubeWord full = cube_inputs_full_mask(n);
+    CubeWord common_fixed = (~A->mask & ~B->mask) & full;
+    CubeWord diff = (A->bits ^ B->bits) & common_fixed;
+    return cube_popcount(diff);
 }
 
 /* Intersection G: positions where both A and B are fixed and equal stay fixed
    (value preserved); positions where either is dash or they disagree become dash. */
 static Cube intersect_G(const Cube *A, const Cube *B, int n)
 {
-    uint32_t full = inputs_full_mask(n);
-    uint32_t both_fixed = (~A->mask & ~B->mask) & full;
-    uint32_t disagree = (A->bits ^ B->bits) & both_fixed;
-    uint32_t agree = both_fixed & ~disagree;
+    CubeWord full = cube_inputs_full_mask(n);
+    CubeWord both_fixed = (~A->mask & ~B->mask) & full;
+    CubeWord disagree = (A->bits ^ B->bits) & both_fixed;
+    CubeWord agree = both_fixed & ~disagree;
 
     Cube G = {0,0};
     G.mask = (~agree) & full;        /* dash where not agree */
@@ -86,17 +69,17 @@ static Cube intersect_G(const Cube *A, const Cube *B, int n)
 static Cube diff_C(const Cube *A, const Cube *B, int n, int mode)
 {
     const Cube *src = (mode == 1 ? A : B);
-    uint32_t full = inputs_full_mask(n);
+    CubeWord full = cube_inputs_full_mask(n);
 
-    uint32_t both_fixed = (~A->mask & ~B->mask) & full;
-    uint32_t disagree = (A->bits ^ B->bits) & both_fixed;
-    uint32_t agree = both_fixed & ~disagree;           /* agreement -> C dash */
+    CubeWord both_fixed = (~A->mask & ~B->mask) & full;
+    CubeWord disagree = (A->bits ^ B->bits) & both_fixed;
+    CubeWord agree = both_fixed & ~disagree;           /* agreement -> C dash */
 
-    uint32_t src_fixed = (~src->mask) & full;          /* where src has literal */
-    uint32_t either_dash = full & ~both_fixed;         /* one/both dashes */
+    CubeWord src_fixed = (~src->mask) & full;          /* where src has literal */
+    CubeWord either_dash = full & ~both_fixed;         /* one/both dashes */
 
-    uint32_t C_mask = (agree | (either_dash & ~src_fixed)) & full;
-    uint32_t C_bits = src->bits & src_fixed & (disagree | either_dash);
+    CubeWord C_mask = (agree | (either_dash & ~src_fixed)) & full;
+    CubeWord C_bits = src->bits & src_fixed & (disagree | either_dash);
 
     Cube C = { C_bits, C_mask };
     return C;
@@ -105,11 +88,11 @@ static Cube diff_C(const Cube *A, const Cube *B, int n, int mode)
 /* Overlay fixed literals from Cdiff on top of Cold: where Cdiff is fixed it
    replaces Cold; otherwise Cold is preserved. */
 static Cube overlay_diff_on_C(const Cube *Cold,
-                              const Cube *Cdiff,
-                              int n)
+                               const Cube *Cdiff,
+                               int n)
 {
-    uint32_t full = inputs_full_mask(n);
-    uint32_t diff_fixed = (~Cdiff->mask) & full;
+    CubeWord full = cube_inputs_full_mask(n);
+    CubeWord diff_fixed = (~Cdiff->mask) & full;
 
     Cube R;
     R.mask = Cold->mask & ~diff_fixed; /* clear dash where diff provides fixed */
@@ -123,17 +106,17 @@ static Cube overlay_diff_on_C(const Cube *Cold,
    contain both 0 and 1 values (i.e., consistent polarity). */
 static bool consistent_polarity(const OutputCube *oc, int n)
 {
-    uint32_t full = inputs_full_mask(n);
+    CubeWord full = cube_inputs_full_mask(n);
 
-    uint32_t g_fixed = (~oc->g.mask) & full;
-    uint32_t g_ones = oc->g.bits & g_fixed;
-    uint32_t g_zeros = g_fixed & ~oc->g.bits;
+    CubeWord g_fixed = (~oc->g.mask) & full;
+    CubeWord g_ones = oc->g.bits & g_fixed;
+    CubeWord g_zeros = g_fixed & ~oc->g.bits;
 
-    uint32_t ones = g_ones;
-    uint32_t zeros = g_zeros;
+    CubeWord ones = g_ones;
+    CubeWord zeros = g_zeros;
 
     if (oc->hasNegative) {
-        uint32_t c_fixed = (~oc->c.mask) & full;
+        CubeWord c_fixed = (~oc->c.mask) & full;
         ones |= (oc->c.bits & c_fixed);
         zeros |= (c_fixed & ~oc->c.bits);
     }
@@ -144,8 +127,8 @@ static bool consistent_polarity(const OutputCube *oc, int n)
 /* Invert fixed bits: dashes stay dash; fixed 1 -> 0, fixed 0 -> 1. */
 static Cube invert_bits(const Cube *src, int n)
 {
-    uint32_t full = inputs_full_mask(n);
-    uint32_t fixed = (~src->mask) & full;
+    CubeWord full = cube_inputs_full_mask(n);
+    CubeWord fixed = (~src->mask) & full;
     Cube out;
     out.mask = src->mask & full;
     out.bits = (~src->bits) & fixed;
@@ -173,28 +156,16 @@ static int get_toffoli_cost(int controls) {
 
 static inline int cube_fixed_count(const Cube *c, int n)
 {
-    uint32_t full = inputs_full_mask(n);
-    uint32_t fixed = (~c->mask) & full;
-#if defined(__GNUC__) || defined(__clang__)
-    return __builtin_popcount(fixed);
-#else
-    int cnt = 0;
-    while (fixed) { cnt += (fixed & 1u); fixed >>= 1; }
-    return cnt;
-#endif
+    CubeWord full = cube_inputs_full_mask(n);
+    CubeWord fixed = (~c->mask) & full;
+    return cube_popcount(fixed);
 }
 
 static inline int cube_fixed_zeros(const Cube *c, int n)
 {
-    uint32_t full = inputs_full_mask(n);
-    uint32_t zeros_mask = (~c->mask) & full & ~c->bits; /* fixed and zero */
-#if defined(__GNUC__) || defined(__clang__)
-    return __builtin_popcount(zeros_mask);
-#else
-    int cnt = 0;
-    while (zeros_mask) { cnt += (zeros_mask & 1u); zeros_mask >>= 1; }
-    return cnt;
-#endif
+    CubeWord full = cube_inputs_full_mask(n);
+    CubeWord zeros_mask = (~c->mask) & full & ~c->bits; /* fixed and zero */
+    return cube_popcount(zeros_mask);
 }
 
 /* Compute Maslov quantum cost for an OutputCube (approximation used earlier). */
@@ -222,9 +193,9 @@ static int maslov_cost_outputcube(const OutputCube *oc, int n)
    Merge rules: mixed+pure, pure+pure, special dash
    ------------------------------------------------------------ */
 static bool merge_mixed_pure(const OutputCube *M,
-                             const OutputCube *P,
-                             int n,
-                             OutputCube *Rout)
+                              const OutputCube *P,
+                              int n,
+                              OutputCube *Rout)
 {
     if (!M->hasNegative || P->hasNegative) return false;
 
@@ -241,7 +212,7 @@ static bool merge_mixed_pure(const OutputCube *M,
        If P is full-dash then intersect_G will produce a full-dash G and
        overlay will create a negative cube that simply recreates a pure term;
        disallow this to avoid undoing earlier useful merges. */
-    uint32_t full = inputs_full_mask(n);
+    CubeWord full = cube_inputs_full_mask(n);
     if (!P->hasNegative && (P->g.mask == full) && (G.mask == full)) {
         if (MERGE_TRACE) {
             char sM[256], sP[256];
@@ -316,7 +287,7 @@ static bool merge_special_dash(const OutputCube *A,
     const OutputCube *dash = NULL;
     const OutputCube *mix  = NULL;
 
-    uint32_t full = inputs_full_mask(n);
+    CubeWord full = cube_inputs_full_mask(n);
 
     if (!A->hasNegative && A->g.mask == full) { dash = A; mix = B; }
     else if (!B->hasNegative && B->g.mask == full) { dash = B; mix = A; }
@@ -347,11 +318,11 @@ static bool merge_special_dash(const OutputCube *A,
    MASTER MERGE SELECTOR with tracing
    ------------------------------------------------------------ */
 bool find_best_merge(OutputCube *arr,
-                     int count,
-                     int n,
-                     int *outI,
-                     int *outJ,
-                     OutputCube *outCube)
+                    int count,
+                    int n,
+                    int *outI,
+                    int *outJ,
+                    OutputCube *outCube)
 {
     if (MERGE_TRACE) printf("[TRACE] find_best_merge: count=%d n=%d\n", count, n);
 
@@ -383,7 +354,7 @@ bool find_best_merge(OutputCube *arr,
         int bestNet = 0;
         OutputCube bestInvPure;
 
-        uint32_t full = inputs_full_mask(n);
+        CubeWord full = cube_inputs_full_mask(n);
 
         for (int d = 0; d < count; ++d) {
             if (arr[d].hasNegative) continue;
@@ -467,7 +438,7 @@ bool find_best_merge(OutputCube *arr,
                     }
                     continue;
                 }
-                
+
                 int before = maslov_cost_outputcube(&arr[i], n) + maslov_cost_outputcube(&arr[j], n);
                 int after  = maslov_cost_outputcube(&tmp, n);
                 int delta = before - after;
