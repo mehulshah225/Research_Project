@@ -224,55 +224,78 @@ int main(int argc, char **argv)
 
     FILE *fp = fopen(argv[1], "r");
     if (!fp) {
-        fprintf(stderr, "ERROR: Could not open input file: %s\n", argv[1]);
+        perror("open input");
         return 1;
     }
 
-    // Read file into memory
-    char line[MAX_LINE];
+    OutputCube cubes[MAX_CUBES];
     int count = 0;
-    OutputCube arr[MAX_CUBES];
+    char line[MAX_LINE];
+    int startParsing = 0;
 
     while (fgets(line, sizeof(line), fp)) {
-        if (line[0] == '.' || line[0] == '\n' || line[0] == '#') continue;
-        if (count >= MAX_CUBES) break;
+        char *p = line;
+        while (*p == ' ' || *p == '\t') p++;
 
-        // Trim newline
-        line[strcspn(line, "\r\n")] = '\0';
+        if (*p == '\0' || *p == '#') continue;
 
-        OutputCube cube = parseOutputCubeLine(line, gNumInputs, count);
-        if (cube.g.mask == 0 && cube.g.bits == 0 && cube.c.mask == 0 && cube.c.bits == 0 && !cube.hasNegative) {
+        if (!strncmp(p, ".i", 2)) {
+            // More robust parsing for .i <num>
+            int tmp = 0;
+            if (sscanf(p, ".i %d", &tmp) == 1) gNumInputs = tmp;
             continue;
         }
+        if (!strncmp(p, ".o", 2)) continue;
+        if (!strncmp(p, ".p", 2)) {
+            startParsing = 1;
+            continue;
+        }
+        if (!strncmp(p, ".type", 5)) {
+            // accept .type esop or eosops, etc.
+            if (strstr(p, "esop") || strstr(p, "eosop"))
+                startParsing = 1;
+            continue;
+        }
+        if (!strncmp(p, ".e", 2)) break;
 
-        arr[count++] = cube;
+        if (!startParsing) continue;
+
+        // Parse cube line
+        OutputCube oc = parseOutputCubeLine(p, gNumInputs, count);
+
+        // Add into array if space remains (safe-guard)
+        if (count < MAX_CUBES) {
+            cubes[count++] = oc;
+        } else {
+            break;
+        }
     }
 
     fclose(fp);
 
-    if (count == 0) {
-        printf("ERROR: No cubes loaded.\n");
-        return 1;
-    }
-
-    // Use a two-stage file parser:
-    // Stage 1: parse header .i N, .o 1, .p P
-    // The file may contain only actual cube lines (no header) in some cases.
-    if (argc >= 3) {
-        // Accept output filename
-        // This branch does not affect the cube data itself.
-    }
-
-    // The input file is expected to contain a header like ".i 8"
-    // For compatibility, this code assumes .i appears early in the file,
-    // but it does not parse it here. Real .i is read later by logic using
-    // the current global value.
-    // For safety, you may set gNumInputs by the caller or leave it at 0.
-    // The optimizer uses the actual n from the current invocation.
-
-    // In practice, the benchmark runner sets gNumInputs by direct assignment.
-    // Here we simply print loaded cubes and continue.
     printf("Loaded %d cubes.\n", count);
+
+    // 1) Containment debug (prints relations)
+    printContainments(cubes, count, gNumInputs);
+
+    // 2) Merge reduction (in-place)
+    doMergeReduction(cubes, &count, gNumInputs);
+
+    // 3) Final ESOP (stdout)
+    printf("\n# Final ESOP:\n");
+    for (int i = 0; i < count; i++) {
+        char buf[256];
+        outputCubeToStr(&cubes[i], gNumInputs, buf);
+        printf("%s 1\n", buf);
+    }
+
+    if (argc >= 3) {
+        printf("\nWriting minimized ESOP to: %s\n", argv[2]);
+        writeESOPFile(argv[2], cubes, count, gNumInputs);
+    } else {
+        printf("\nERROR: Missing output filename (argv[2]). Usage:\n");
+        printf("  ./main <input.esop> <output.esops>\n");
+    }
 
     return 0;
 }
