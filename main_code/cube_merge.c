@@ -284,6 +284,11 @@ static bool merge_special_dash(const OutputCube *A,
                                int n,
                                OutputCube *Rout)
 {
+    /* DISABLED - unsound. Applied 1 (+) G.C' = (G.C')' by inverting every
+       literal, but (a.b)' = a' + b' != a'.b'. Valid only for <=1 literal. */
+    (void)A; (void)B; (void)n; (void)Rout;
+    return false;
+
     const OutputCube *dash = NULL;
     const OutputCube *mix  = NULL;
 
@@ -349,7 +354,7 @@ bool find_best_merge(OutputCube *arr,
        merge (invPure + q) with positive net benefit. If found, prefer the
        dash->inv step (so dash is consumed first) even if a pure+pure candidate
        currently has larger immediate delta. */
-    {
+    if (0) {   /* DISABLED - same unsound inversion */
         int bestTD=-1, bestTP=-1;
         int bestNet = 0;
         OutputCube bestInvPure;

@@ -1,0 +1,13 @@
+# EXORCISM-4 output for command line arguments: "-q0 -v0 D:\gitrepos\Research_Project\benchmarks\oracle_pla\grover_3sat_n10_1.pla"
+# Minimization performed Mon Aug 17 09:51:18 2026
+# Initial statistics: Cubes = 2  Literals = 18
+# Final   statistics: Cubes = 2  Literals = 18
+# Input file reading and variable reordering time = 0.00 sec
+# Cover generation and ESOP minimization time = 0.00 sec
+.i 10
+.o 1
+.p 2
+.type esop
+00000-0111 1
+010-100010 1
+.e

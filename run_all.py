@@ -36,8 +36,70 @@ def run_command(cmd):
         capture_output=True,
         text=True
     )
-    return result.stdout + result.stderr
 
+    output = result.stdout + result.stderr
+
+    if result.returncode != 0:
+        print("\n[COMMAND FAILED]")
+        print(cmd)
+        print(output)
+        raise RuntimeError(
+            f"Command failed with exit code {result.returncode}: {cmd}"
+        )
+
+    return output
+
+class EquivalenceFailure(Exception):
+    pass
+
+# ==================================================
+# EQUIVALENCE VERIFICATION
+# ==================================================
+VERIFY_SCRIPT = os.path.join(WORKDIR, "verify_equivalence.py")
+
+
+def verify_equivalence(esop_path, final_path):
+    """
+    Verify that the final factorized representation is functionally
+    equivalent to the EXORCISM ESOP.
+
+    Raises an exception if equivalence fails.
+    """
+
+    if not os.path.exists(VERIFY_SCRIPT):
+        raise Exception(
+            f"Equivalence checker not found: {VERIFY_SCRIPT}"
+        )
+
+    if not os.path.exists(esop_path):
+        raise Exception(
+            f"ESOP file not found: {esop_path}"
+        )
+
+    if not os.path.exists(final_path):
+        raise Exception(
+            f"Final EOSOPS file not found: {final_path}"
+        )
+
+    result = subprocess.run(
+        ["python", VERIFY_SCRIPT, esop_path, final_path],
+        cwd=WORKDIR,
+        capture_output=True,
+        text=True
+    )
+
+    output = result.stdout + result.stderr
+
+    print("\n========== EQUIVALENCE CHECK ==========")
+    print(output.strip())
+    print("=======================================\n")
+
+    if result.returncode != 0:
+        raise EquivalenceFailure(
+            "EQUIVALENCE FAILURE — final circuit does not match ESOP"
+        )
+
+    return True
 
 # ==================================================
 # EXTRACT INPUT COUNT FROM PLA
@@ -189,9 +251,14 @@ def main():
             inputs = extract_inputs(pla_path)
             original = analyze(pla_path)
 
+            # ---------- REMOVE STALE OUTPUTS ----------
+            for path in [esop_path, eosops_path, final_path]:
+                if os.path.exists(path):
+                    os.remove(path)
+
             # ---------- STEP 1: EXORCISM-4 ----------
             print("Running EXORCISM-4...")
-            run_command(f'wine exorcism4.exe "{pla_path}"')
+            run_command(f' exorcism4.exe "{pla_path}"')
 
             generated_esop = os.path.splitext(pla_path)[0] + ".esop"
             if not os.path.exists(generated_esop):
@@ -210,12 +277,30 @@ def main():
 
             # ---------- STEP 3: FINAL PARSER ----------
             print("Running Final Parser...")
-            parser_output = run_command(f'{FINAL_PARSER_BIN} "{eosops_path}"')
+
+            parser_output = run_command(
+                f'{FINAL_PARSER_BIN} "{eosops_path}"'
+            )
+
             with open(final_path, "w") as f:
                 f.write(parser_output)
+
             if not os.path.exists(final_path):
                 raise Exception("FINAL file not generated")
 
+
+            # ---------- STEP 3.5: EQUIVALENCE CHECK ----------
+            print("Verifying functional equivalence...")
+
+            verify_equivalence(
+                esop_path,
+                final_path
+            )
+
+            print("EQUIVALENCE PASS")
+
+
+            # ---------- STEP 4: FINAL ANALYSIS ----------
             final = analyze(final_path)
 
             # ---------- SAVINGS ----------
@@ -260,7 +345,10 @@ def main():
                 and esop["t"] > 0
                 and final["t"] == 0
             ):
-                print("  [CHECK] final T-count is 0 while baseline is not")
+                raise RuntimeError(
+                    f"Invalid T-count result for {benchmark}: "
+                    f"ESOP T={esop['t']}, FINAL T=0"
+                )
 
             esop_ssd_save = saving(original["ssd"], esop["ssd"])
             final_ssd_save = saving(original["ssd"], final["ssd"])
@@ -270,6 +358,8 @@ def main():
             results.append({
                 "Function": benchmark,
                 "Inputs": inputs,
+
+                "Equivalence": "PASS",
 
                 "ESOP Cost": esop["cost"],
                 "EOSOPS Cost": eosops["cost"],
@@ -357,6 +447,14 @@ def main():
             print(f"Max controls: {esop['max_controls']} -> {final['max_controls']}")
             print(f"Ancilla     : peak {final['anc_peak']}, total {final['anc_total']}")
 
+        except EquivalenceFailure as e:
+            print("\n" + "!" * 70)
+            print(f"FATAL EQUIVALENCE FAILURE: {benchmark}")
+            print("Reason:", e)
+            print("Pipeline aborted.")
+            print("!" * 70)
+            raise
+
         except Exception as e:
             print(f"FAILED: {benchmark}")
             print("Reason:", e)
@@ -395,6 +493,7 @@ def main():
     structure_df = df[[
         "Function",
         "Inputs",
+        "Equivalence",
 
         "Orig Cubes",
         "Orig Literals",
@@ -424,7 +523,9 @@ def main():
     print("\n====================================")
     print("SUMMARY")
     print("====================================")
-    print(f"benchmarks           : {len(df)}")
+    print(f"benchmarks found      : {len(pla_files)}")
+    print(f"benchmarks verified   : {len(df)}")
+    print(f"equivalence failures  : {len(pla_files) - len(df)}")
     print(f"median cost saving   : {df['Final Cost Saving (%)'].median():.2f}%")
     print(f"cost increased       : {(df['Final Cost'] > df['ESOP Cost']).sum()}")
     numeric_t = pd.to_numeric(df["Final T Saving (%)"], errors="coerce")

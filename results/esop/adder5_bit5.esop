@@ -1,0 +1,42 @@
+# EXORCISM-4 output for command line arguments: "-q0 -v0 D:\gitrepos\Research_Project\benchmarks\oracle_pla\adder5_bit5.pla"
+# Minimization performed Mon Aug 17 09:51:18 2026
+# Initial statistics: Cubes = 31  Literals = 160
+# Final   statistics: Cubes = 31  Literals = 160
+# Input file reading and variable reordering time = 0.00 sec
+# Cover generation and ESOP minimization time = 0.00 sec
+.i 10
+.o 1
+.p 31
+.type esop
+0-1---01-- 1
+001----1-- 1
+--1--001-- 1
+-01--0-1-- 1
+10-1---01- 1
+-0-1-1-01- 1
+-001-1--1- 1
+1--1--001- 1
+---1-1001- 1
+--01-10-1- 1
+1001----1- 1
+1-01--0-1- 1
+1--01-10-1 1
+---01110-1 1
+-1-011-0-1 1
+----111001 1
+1-001-1--1 1
+--00111--1 1
+-10011---1 1
+--0-111-01 1
+1---1-1001 1
+-1--11-001 1
+1-0-1-1-01 1
+-10-11--01 1
+11-01--0-1 1
+11001----1 1
+11--1--001 1
+110-1---01 1
+01----1--- 1
+-1---01--- 1
+1----1---- 1
+.e
