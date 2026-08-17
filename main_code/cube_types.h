@@ -51,4 +51,4 @@ typedef enum {
     CONTAINS_B_A  = 2  /* B contains A */
 } ContainmentResult;
 
-#endif /*
+#endif /* CUBE_TYPES_H */

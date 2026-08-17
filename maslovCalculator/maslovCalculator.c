@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_LINE   512
-#define MAX_TOKENS 32
+#define MAX_LINE   4096
+#define MAX_TOKENS 256
 #define MAX_ARITY  256
 
 /* ==================================================
