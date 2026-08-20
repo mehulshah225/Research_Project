@@ -1,5 +1,5 @@
-# EXORCISM-4 output for command line arguments: "-q0 -v0 D:\gitrepos\Research_Project\benchmarks\oracle_pla\shor_modexp_5_mod33_bit1.pla"
-# Minimization performed Mon Aug 17 09:51:24 2026
+# EXORCISM-4 output for command line arguments: "-q0 -v0 D:\gitrepos\Research_Project\benchmarks\oracle_pla\shor\shor_modexp_5_mod33_bit1.pla"
+# Minimization performed Wed Aug 19 09:32:12 2026
 # Initial statistics: Cubes = 256  Literals = 1476
 # Final   statistics: Cubes = 147  Literals = 944
 # Input file reading and variable reordering time = 0.00 sec

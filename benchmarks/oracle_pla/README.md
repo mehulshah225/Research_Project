@@ -21,7 +21,6 @@ as a^x mod N are given as one file per output bit.
 
 ## Families
 
-    grover_3sat_n{8,10,12}_{1,2,3}      random 3-SAT at ratio 4.26 (hard threshold)
     shor_modexp_{a}_mod{N}_bit{k}       bit k of a^x mod N
     adder{n}_bit{k}                     bit k of n-bit ripple-carry addition
     majority{n}                         n-input majority
@@ -35,9 +34,3 @@ as a^x mod N are given as one file per output bit.
 
 `run_oracle.sh` does all four. The oracle .esop takes the place of what
 EXORCISM-4 would normally emit, so the synthesis pipeline is unmodified.
-
-## Note on two degenerate files
-
-`grover_3sat_n10_3` and `grover_3sat_n12_1` have `.p 0` - those SAT instances
-are unsatisfiable, so the oracle is the constant 0 and there is no circuit.
-They are excluded from the reported medians.

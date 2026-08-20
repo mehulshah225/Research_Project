@@ -1,5 +1,5 @@
 # EXORCISM-4 output for command line arguments: "-q0 -v0 D:\gitrepos\Research_Project\benchmarks\xor8\xor8.pla"
-# Minimization performed Mon Aug 17 02:24:43 2026
+# Minimization performed Wed Aug 19 11:01:16 2026
 # Initial statistics: Cubes = 9  Literals = 15
 # Final   statistics: Cubes = 9  Literals = 15
 # Input file reading and variable reordering time = 0.00 sec
