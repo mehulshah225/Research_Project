@@ -30,20 +30,13 @@ No function increased in quantum cost or T-count; eight were left exactly
 unchanged. Auxiliary qubit use never exceeded two, regardless of function size.
 All 64 functions pass equivalence verification.
 
-Search oracles built from random 3-SAT instances were evaluated but are **not
-included** in the reported results: at the clause-to-variable ratio used
-(4.26, the satisfiability threshold), instances admit few satisfying
-assignments, and 28 of the 37 evaluated minimize to one or two product terms,
-leaving no pair of terms for factorization to act on. Their median T-count
-reduction, 30.4%, slightly exceeds that of the reported suite, so the omission
-is conservative rather than favourable. This is a limitation of truth-table
-synthesis for that oracle family, not of the transformation. See
-`benchmarks/grover_oracles/` (regenerate with `generate_grover_oracles.py`) to
-reproduce it.
-
 A separate comparison against circuit-level optimization (PyZX) is reported in
 the manuscript; see `qasm_pyzx/`, `run_comparison.py` and
 `results/comparisons/`.
+
+A second evaluation applies the same transformation to modular-exponentiation
+circuits built compositionally rather than from truth tables; see
+`benchmarks/mod_cells_pla/`, `results/*/mod_cell/` and `results_modcells.xlsx`.
 
 ---
 
@@ -66,14 +59,13 @@ below will run without these. `make clean` removes them.
 ### Part 2 — representation pipeline (`run_all.py`)
 
 `run_all.py` does not itself contain the algorithm — it drives the three
-binaries above plus `verify_equivalence.py`, and must find all four in the
-repository root. For each PLA file in `benchmarks/`:
+binaries above plus `verify_equivalence.py` and `containment.py`, and must find
+all of them in the repository root. For each PLA file in `benchmarks/`:
 
 1. Read the Boolean function in **PLA format**.
-2. **EXORCISM-4** minimizes it to an ESOP (`results/esop/`). *(External
-   dependency — not redistributed here; see the original EXORCISM
-   distribution. `results/esop/` already contains its output for every
-   deposited benchmark, so steps 3 onward run without it.)*
+2. **EXORCISM-4** (`exorcism4.exe`, included here) minimizes it to an ESOP
+   (`results/esop/`). `results/esop/` already contains its output for every
+   deposited benchmark, so steps 3 onward run without re-invoking it.
 3. **`esop_min`** (Stage 1, containment): pairs of cubes related by
    containment are merged when doing so strictly reduces quantum cost,
    selected greedily with ties broken by cube distance then residual literal
@@ -90,6 +82,15 @@ repository root. For each PLA file in `benchmarks/`:
 6. **`maslov`** evaluates quantum cost, T-count (4(n−1) per n-control gate,
    an AND-tree of measurement-assisted AND gates), gate count, maximum
    control count, and auxiliary qubit peak/total, on every stage's output.
+7. **`containment.py`** supplies the structural metrics. `parse_file()` reads
+   any stage's PLA/ESOP/EOSOPS/FINAL output and returns the variable count,
+   declared cube count, literal count and cube list. `compute_ssd()` computes
+   **Shared Support Density**: for every pair of cubes, the number of positions
+   at which both are non-`-` and equal, averaged over all pairs and normalised
+   by the variable count. SSD measures how much shared structure a
+   representation contains, and so how much material the two factorization
+   stages have to work with. It populates the Structure sheet of
+   `results.xlsx`. `run_all.py` imports both functions.
 
 Run it with:
 
@@ -156,6 +157,9 @@ directory without excluding `synth_benchmarks/` first — there is no
 | `comparison_extended_timeout.csv` | 8 | large instances rerun at an 8 h or 24 h limit |
 | `comparison_extended_timeout_failures.csv` | 3 | attempts that exceeded the extended limit |
 
+The `cmp_w*.csv` and `cmp_oracles*.csv` files in the same directory are the raw
+per-window outputs the two 600 s files were merged from, kept for provenance.
+
 Columns are `function`, `decomposed_baseline` (A), `baseline_pyzx` (B),
 `decomposed_factorized` (C), `factorized_pyzx` (D), qubit counts, gate counts
 before and after Clifford+T decomposition, and optimizer wall-clock seconds. An
@@ -179,30 +183,37 @@ and excluded from the figure panels, since no paired comparison exists.
 ## Repository structure
 
 ```
-main_code/            containment.c, cube_merge.c, final_parser.c, cube_types.h
-maslovCalculator/      cost and T-count evaluation (maslov)
-benchmarks/            one directory per structured benchmark; synth_benchmarks/
-                        (14 random 100-variable functions); oracle_pla/
-                        (Shor, adder, majority); grover_oracles/ (excluded, see above)
-results/                esop/, eosops/, final_parser/ — output of each stage
+main_code/              main.c, cube_containment.c/.h, cube_merge.c/.h,
+                          final_parser.c, cube_types.h
+maslovCalculator/       maslovCalculator.c — cost and T-count evaluation
+benchmarks/             one directory per structured benchmark;
+                          synth_benchmarks/ (14 random 100-variable functions);
+                          oracle_pla/ (Shor, adder, majority);
+                          mod_cells_pla/ (compositional modular-exponentiation
+                          cells, one directory per modulus width)
+results/                esop/, eosops/, final_parser/ — output of each stage,
+                          each with a mod_cell/ subdirectory for the
+                          compositional cells
                         comparisons/ — deposited PyZX comparison CSVs
 qasm/, qasm_pyzx/       circuit exports and PyZX-optimized circuits
+containment.py          PLA/ESOP parsing and Shared Support Density metric,
+                          imported by run_all.py
 verify_equivalence.py   standalone equivalence checker (also called by run_all.py)
 export_qasm.py          representation -> OpenQASM 2.0
 run_comparison.py       PyZX comparison harness
 generate_synthetic.py   regenerates the 14 random 100-variable benchmarks (seeded)
-generate_grover_oracles.py   regenerates the excluded 3-SAT oracle set (seeded)
 run_all.py              full pipeline driver
-results.xlsx            deposited results, all rows equivalence-verified
+exorcism4.exe           EXORCISM-4 ESOP minimizer
+results.xlsx            deposited results for the 64-function suite,
+                          all rows equivalence-verified
+results_modcells.xlsx   deposited results for the compositional cells,
+                          same four sheets, same resource models
 ```
 
 ## Requirements
 
 - `gcc` (`make` builds `esop_min`, `final_parser`, `maslov` via the Makefile)
 - Python 3, `pandas`, `openpyxl` (for `run_all.py`)
-- EXORCISM-4 (external; not redistributed here) — only for regenerating
-  `results/esop/` from scratch. Not needed to reproduce reported results,
-  since `results/esop/` is already deposited for every benchmark.
 - `pyzx` — only for `run_comparison.py` (Part 3); not needed for Parts 1–2.
 - `scipy` — only if you want to recompute the sign test over the comparison
   results.
