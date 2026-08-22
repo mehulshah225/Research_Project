@@ -1,0 +1,4 @@
+function,error_type,error
+shor_modexp_5_mod33_bit0,baseline_pyzx_TIMEOUT,28799.9
+shor_modexp_5_mod33_bit0,factorized_pyzx_TIMEOUT,28800.0
+shor_modexp_5_mod33_bit1,baseline_pyzx_TIMEOUT,86399.8

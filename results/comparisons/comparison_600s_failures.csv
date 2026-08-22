@@ -1,0 +1,13 @@
+function,error_type,error
+9sym_d_100,baseline_pyzx_TIMEOUT,600.0
+9sym_d_100,factorized_pyzx_TIMEOUT,600.0
+life_d_100,baseline_pyzx_TIMEOUT,600.0
+life_d_100,factorized_pyzx_TIMEOUT,600.0
+majority11,baseline_pyzx_TIMEOUT,600.0
+majority11,factorized_pyzx_TIMEOUT,600.0
+max46_d_100,baseline_pyzx_TIMEOUT,600.0
+max46_d_100,factorized_pyzx_TIMEOUT,600.0
+ryy6_198,baseline_pyzx_TIMEOUT,600.0
+ryy6_198,factorized_pyzx_TIMEOUT,600.0
+sym10_d_100,baseline_pyzx_TIMEOUT,600.0
+sym10_d_100,factorized_pyzx_TIMEOUT,600.0

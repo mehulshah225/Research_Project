@@ -1,0 +1,1206 @@
+{
+  "label": "mod15",
+  "blocks": 4614,
+  "verified": 4614,
+  "failed": 0,
+  "skipped": 0,
+  "cells": [
+    {
+      "name": "mod15_cell0000",
+      "file": "mod15_cell0000.pla",
+      "inputs": 5,
+      "cubes": 2,
+      "occurrences": 675,
+      "baseline_t": 0,
+      "baseline_qc": 2
+    },
+    {
+      "name": "mod15_cell0001",
+      "file": "mod15_cell0001.pla",
+      "inputs": 3,
+      "cubes": 3,
+      "occurrences": 612,
+      "baseline_t": 4,
+      "baseline_qc": 7
+    },
+    {
+      "name": "mod15_cell0002",
+      "file": "mod15_cell0002.pla",
+      "inputs": 3,
+      "cubes": 2,
+      "occurrences": 612,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0003",
+      "file": "mod15_cell0003.pla",
+      "inputs": 3,
+      "cubes": 2,
+      "occurrences": 563,
+      "baseline_t": 0,
+      "baseline_qc": 2
+    },
+    {
+      "name": "mod15_cell0004",
+      "file": "mod15_cell0004.pla",
+      "inputs": 5,
+      "cubes": 3,
+      "occurrences": 498,
+      "baseline_t": 4,
+      "baseline_qc": 7
+    },
+    {
+      "name": "mod15_cell0005",
+      "file": "mod15_cell0005.pla",
+      "inputs": 4,
+      "cubes": 2,
+      "occurrences": 469,
+      "baseline_t": 0,
+      "baseline_qc": 2
+    },
+    {
+      "name": "mod15_cell0006",
+      "file": "mod15_cell0006.pla",
+      "inputs": 3,
+      "cubes": 2,
+      "occurrences": 405,
+      "baseline_t": 0,
+      "baseline_qc": 2
+    },
+    {
+      "name": "mod15_cell0007",
+      "file": "mod15_cell0007.pla",
+      "inputs": 4,
+      "cubes": 3,
+      "occurrences": 387,
+      "baseline_t": 8,
+      "baseline_qc": 11
+    },
+    {
+      "name": "mod15_cell0008",
+      "file": "mod15_cell0008.pla",
+      "inputs": 4,
+      "cubes": 4,
+      "occurrences": 387,
+      "baseline_t": 8,
+      "baseline_qc": 12
+    },
+    {
+      "name": "mod15_cell0009",
+      "file": "mod15_cell0009.pla",
+      "inputs": 5,
+      "cubes": 2,
+      "occurrences": 340,
+      "baseline_t": 0,
+      "baseline_qc": 2
+    },
+    {
+      "name": "mod15_cell0010",
+      "file": "mod15_cell0010.pla",
+      "inputs": 3,
+      "cubes": 3,
+      "occurrences": 312,
+      "baseline_t": 4,
+      "baseline_qc": 7
+    },
+    {
+      "name": "mod15_cell0011",
+      "file": "mod15_cell0011.pla",
+      "inputs": 3,
+      "cubes": 2,
+      "occurrences": 304,
+      "baseline_t": 0,
+      "baseline_qc": 2
+    },
+    {
+      "name": "mod15_cell0012",
+      "file": "mod15_cell0012.pla",
+      "inputs": 5,
+      "cubes": 3,
+      "occurrences": 304,
+      "baseline_t": 4,
+      "baseline_qc": 7
+    },
+    {
+      "name": "mod15_cell0013",
+      "file": "mod15_cell0013.pla",
+      "inputs": 5,
+      "cubes": 2,
+      "occurrences": 302,
+      "baseline_t": 0,
+      "baseline_qc": 2
+    },
+    {
+      "name": "mod15_cell0014",
+      "file": "mod15_cell0014.pla",
+      "inputs": 3,
+      "cubes": 4,
+      "occurrences": 300,
+      "baseline_t": 4,
+      "baseline_qc": 8
+    },
+    {
+      "name": "mod15_cell0015",
+      "file": "mod15_cell0015.pla",
+      "inputs": 4,
+      "cubes": 2,
+      "occurrences": 257,
+      "baseline_t": 0,
+      "baseline_qc": 2
+    },
+    {
+      "name": "mod15_cell0016",
+      "file": "mod15_cell0016.pla",
+      "inputs": 5,
+      "cubes": 3,
+      "occurrences": 225,
+      "baseline_t": 8,
+      "baseline_qc": 11
+    },
+    {
+      "name": "mod15_cell0017",
+      "file": "mod15_cell0017.pla",
+      "inputs": 3,
+      "cubes": 3,
+      "occurrences": 220,
+      "baseline_t": 12,
+      "baseline_qc": 15
+    },
+    {
+      "name": "mod15_cell0018",
+      "file": "mod15_cell0018.pla",
+      "inputs": 4,
+      "cubes": 3,
+      "occurrences": 210,
+      "baseline_t": 4,
+      "baseline_qc": 7
+    },
+    {
+      "name": "mod15_cell0019",
+      "file": "mod15_cell0019.pla",
+      "inputs": 4,
+      "cubes": 2,
+      "occurrences": 210,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0020",
+      "file": "mod15_cell0020.pla",
+      "inputs": 5,
+      "cubes": 2,
+      "occurrences": 207,
+      "baseline_t": 0,
+      "baseline_qc": 2
+    },
+    {
+      "name": "mod15_cell0021",
+      "file": "mod15_cell0021.pla",
+      "inputs": 3,
+      "cubes": 5,
+      "occurrences": 185,
+      "baseline_t": 12,
+      "baseline_qc": 17
+    },
+    {
+      "name": "mod15_cell0022",
+      "file": "mod15_cell0022.pla",
+      "inputs": 3,
+      "cubes": 5,
+      "occurrences": 168,
+      "baseline_t": 12,
+      "baseline_qc": 17
+    },
+    {
+      "name": "mod15_cell0023",
+      "file": "mod15_cell0023.pla",
+      "inputs": 5,
+      "cubes": 3,
+      "occurrences": 166,
+      "baseline_t": 4,
+      "baseline_qc": 7
+    },
+    {
+      "name": "mod15_cell0024",
+      "file": "mod15_cell0024.pla",
+      "inputs": 5,
+      "cubes": 3,
+      "occurrences": 165,
+      "baseline_t": 0,
+      "baseline_qc": 3
+    },
+    {
+      "name": "mod15_cell0025",
+      "file": "mod15_cell0025.pla",
+      "inputs": 7,
+      "cubes": 2,
+      "occurrences": 160,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0026",
+      "file": "mod15_cell0026.pla",
+      "inputs": 7,
+      "cubes": 2,
+      "occurrences": 160,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0027",
+      "file": "mod15_cell0027.pla",
+      "inputs": 7,
+      "cubes": 2,
+      "occurrences": 160,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0028",
+      "file": "mod15_cell0028.pla",
+      "inputs": 3,
+      "cubes": 2,
+      "occurrences": 154,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0029",
+      "file": "mod15_cell0029.pla",
+      "inputs": 3,
+      "cubes": 3,
+      "occurrences": 153,
+      "baseline_t": 4,
+      "baseline_qc": 7
+    },
+    {
+      "name": "mod15_cell0030",
+      "file": "mod15_cell0030.pla",
+      "inputs": 5,
+      "cubes": 3,
+      "occurrences": 148,
+      "baseline_t": 4,
+      "baseline_qc": 7
+    },
+    {
+      "name": "mod15_cell0031",
+      "file": "mod15_cell0031.pla",
+      "inputs": 5,
+      "cubes": 2,
+      "occurrences": 148,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0032",
+      "file": "mod15_cell0032.pla",
+      "inputs": 5,
+      "cubes": 3,
+      "occurrences": 144,
+      "baseline_t": 0,
+      "baseline_qc": 3
+    },
+    {
+      "name": "mod15_cell0033",
+      "file": "mod15_cell0033.pla",
+      "inputs": 5,
+      "cubes": 3,
+      "occurrences": 126,
+      "baseline_t": 4,
+      "baseline_qc": 7
+    },
+    {
+      "name": "mod15_cell0034",
+      "file": "mod15_cell0034.pla",
+      "inputs": 5,
+      "cubes": 2,
+      "occurrences": 126,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0035",
+      "file": "mod15_cell0035.pla",
+      "inputs": 4,
+      "cubes": 3,
+      "occurrences": 121,
+      "baseline_t": 4,
+      "baseline_qc": 7
+    },
+    {
+      "name": "mod15_cell0036",
+      "file": "mod15_cell0036.pla",
+      "inputs": 5,
+      "cubes": 3,
+      "occurrences": 120,
+      "baseline_t": 4,
+      "baseline_qc": 7
+    },
+    {
+      "name": "mod15_cell0037",
+      "file": "mod15_cell0037.pla",
+      "inputs": 4,
+      "cubes": 2,
+      "occurrences": 119,
+      "baseline_t": 0,
+      "baseline_qc": 2
+    },
+    {
+      "name": "mod15_cell0038",
+      "file": "mod15_cell0038.pla",
+      "inputs": 4,
+      "cubes": 1,
+      "occurrences": 83,
+      "baseline_t": 0,
+      "baseline_qc": 1
+    },
+    {
+      "name": "mod15_cell0039",
+      "file": "mod15_cell0039.pla",
+      "inputs": 4,
+      "cubes": 2,
+      "occurrences": 82,
+      "baseline_t": 0,
+      "baseline_qc": 2
+    },
+    {
+      "name": "mod15_cell0040",
+      "file": "mod15_cell0040.pla",
+      "inputs": 4,
+      "cubes": 3,
+      "occurrences": 78,
+      "baseline_t": 8,
+      "baseline_qc": 11
+    },
+    {
+      "name": "mod15_cell0041",
+      "file": "mod15_cell0041.pla",
+      "inputs": 4,
+      "cubes": 4,
+      "occurrences": 78,
+      "baseline_t": 8,
+      "baseline_qc": 12
+    },
+    {
+      "name": "mod15_cell0042",
+      "file": "mod15_cell0042.pla",
+      "inputs": 3,
+      "cubes": 3,
+      "occurrences": 78,
+      "baseline_t": 4,
+      "baseline_qc": 7
+    },
+    {
+      "name": "mod15_cell0043",
+      "file": "mod15_cell0043.pla",
+      "inputs": 5,
+      "cubes": 3,
+      "occurrences": 75,
+      "baseline_t": 8,
+      "baseline_qc": 11
+    },
+    {
+      "name": "mod15_cell0044",
+      "file": "mod15_cell0044.pla",
+      "inputs": 5,
+      "cubes": 2,
+      "occurrences": 75,
+      "baseline_t": 0,
+      "baseline_qc": 2
+    },
+    {
+      "name": "mod15_cell0045",
+      "file": "mod15_cell0045.pla",
+      "inputs": 3,
+      "cubes": 4,
+      "occurrences": 75,
+      "baseline_t": 4,
+      "baseline_qc": 8
+    },
+    {
+      "name": "mod15_cell0046",
+      "file": "mod15_cell0046.pla",
+      "inputs": 7,
+      "cubes": 2,
+      "occurrences": 70,
+      "baseline_t": 0,
+      "baseline_qc": 2
+    },
+    {
+      "name": "mod15_cell0047",
+      "file": "mod15_cell0047.pla",
+      "inputs": 5,
+      "cubes": 2,
+      "occurrences": 67,
+      "baseline_t": 0,
+      "baseline_qc": 2
+    },
+    {
+      "name": "mod15_cell0048",
+      "file": "mod15_cell0048.pla",
+      "inputs": 5,
+      "cubes": 2,
+      "occurrences": 50,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0049",
+      "file": "mod15_cell0049.pla",
+      "inputs": 4,
+      "cubes": 3,
+      "occurrences": 47,
+      "baseline_t": 4,
+      "baseline_qc": 7
+    },
+    {
+      "name": "mod15_cell0050",
+      "file": "mod15_cell0050.pla",
+      "inputs": 4,
+      "cubes": 2,
+      "occurrences": 47,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0051",
+      "file": "mod15_cell0051.pla",
+      "inputs": 5,
+      "cubes": 2,
+      "occurrences": 46,
+      "baseline_t": 0,
+      "baseline_qc": 2
+    },
+    {
+      "name": "mod15_cell0052",
+      "file": "mod15_cell0052.pla",
+      "inputs": 6,
+      "cubes": 2,
+      "occurrences": 45,
+      "baseline_t": 0,
+      "baseline_qc": 2
+    },
+    {
+      "name": "mod15_cell0053",
+      "file": "mod15_cell0053.pla",
+      "inputs": 4,
+      "cubes": 2,
+      "occurrences": 44,
+      "baseline_t": 0,
+      "baseline_qc": 2
+    },
+    {
+      "name": "mod15_cell0054",
+      "file": "mod15_cell0054.pla",
+      "inputs": 6,
+      "cubes": 2,
+      "occurrences": 43,
+      "baseline_t": 0,
+      "baseline_qc": 2
+    },
+    {
+      "name": "mod15_cell0055",
+      "file": "mod15_cell0055.pla",
+      "inputs": 5,
+      "cubes": 3,
+      "occurrences": 43,
+      "baseline_t": 0,
+      "baseline_qc": 3
+    },
+    {
+      "name": "mod15_cell0056",
+      "file": "mod15_cell0056.pla",
+      "inputs": 4,
+      "cubes": 2,
+      "occurrences": 42,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0057",
+      "file": "mod15_cell0057.pla",
+      "inputs": 4,
+      "cubes": 2,
+      "occurrences": 42,
+      "baseline_t": 0,
+      "baseline_qc": 2
+    },
+    {
+      "name": "mod15_cell0058",
+      "file": "mod15_cell0058.pla",
+      "inputs": 4,
+      "cubes": 3,
+      "occurrences": 42,
+      "baseline_t": 4,
+      "baseline_qc": 7
+    },
+    {
+      "name": "mod15_cell0059",
+      "file": "mod15_cell0059.pla",
+      "inputs": 3,
+      "cubes": 1,
+      "occurrences": 42,
+      "baseline_t": 0,
+      "baseline_qc": 1
+    },
+    {
+      "name": "mod15_cell0060",
+      "file": "mod15_cell0060.pla",
+      "inputs": 7,
+      "cubes": 2,
+      "occurrences": 42,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0061",
+      "file": "mod15_cell0061.pla",
+      "inputs": 7,
+      "cubes": 2,
+      "occurrences": 42,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0062",
+      "file": "mod15_cell0062.pla",
+      "inputs": 3,
+      "cubes": 5,
+      "occurrences": 42,
+      "baseline_t": 12,
+      "baseline_qc": 17
+    },
+    {
+      "name": "mod15_cell0063",
+      "file": "mod15_cell0063.pla",
+      "inputs": 5,
+      "cubes": 3,
+      "occurrences": 42,
+      "baseline_t": 4,
+      "baseline_qc": 7
+    },
+    {
+      "name": "mod15_cell0064",
+      "file": "mod15_cell0064.pla",
+      "inputs": 5,
+      "cubes": 3,
+      "occurrences": 40,
+      "baseline_t": 4,
+      "baseline_qc": 7
+    },
+    {
+      "name": "mod15_cell0065",
+      "file": "mod15_cell0065.pla",
+      "inputs": 5,
+      "cubes": 2,
+      "occurrences": 40,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0066",
+      "file": "mod15_cell0066.pla",
+      "inputs": 7,
+      "cubes": 2,
+      "occurrences": 39,
+      "baseline_t": 0,
+      "baseline_qc": 2
+    },
+    {
+      "name": "mod15_cell0067",
+      "file": "mod15_cell0067.pla",
+      "inputs": 7,
+      "cubes": 2,
+      "occurrences": 39,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0068",
+      "file": "mod15_cell0068.pla",
+      "inputs": 7,
+      "cubes": 2,
+      "occurrences": 39,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0069",
+      "file": "mod15_cell0069.pla",
+      "inputs": 2,
+      "cubes": 1,
+      "occurrences": 39,
+      "baseline_t": 0,
+      "baseline_qc": 1
+    },
+    {
+      "name": "mod15_cell0070",
+      "file": "mod15_cell0070.pla",
+      "inputs": 2,
+      "cubes": 3,
+      "occurrences": 39,
+      "baseline_t": 0,
+      "baseline_qc": 3
+    },
+    {
+      "name": "mod15_cell0071",
+      "file": "mod15_cell0071.pla",
+      "inputs": 6,
+      "cubes": 2,
+      "occurrences": 39,
+      "baseline_t": 0,
+      "baseline_qc": 2
+    },
+    {
+      "name": "mod15_cell0072",
+      "file": "mod15_cell0072.pla",
+      "inputs": 6,
+      "cubes": 2,
+      "occurrences": 38,
+      "baseline_t": 0,
+      "baseline_qc": 2
+    },
+    {
+      "name": "mod15_cell0073",
+      "file": "mod15_cell0073.pla",
+      "inputs": 6,
+      "cubes": 2,
+      "occurrences": 38,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0074",
+      "file": "mod15_cell0074.pla",
+      "inputs": 4,
+      "cubes": 1,
+      "occurrences": 38,
+      "baseline_t": 0,
+      "baseline_qc": 1
+    },
+    {
+      "name": "mod15_cell0075",
+      "file": "mod15_cell0075.pla",
+      "inputs": 6,
+      "cubes": 2,
+      "occurrences": 38,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0076",
+      "file": "mod15_cell0076.pla",
+      "inputs": 5,
+      "cubes": 3,
+      "occurrences": 36,
+      "baseline_t": 8,
+      "baseline_qc": 11
+    },
+    {
+      "name": "mod15_cell0077",
+      "file": "mod15_cell0077.pla",
+      "inputs": 5,
+      "cubes": 3,
+      "occurrences": 28,
+      "baseline_t": 8,
+      "baseline_qc": 11
+    },
+    {
+      "name": "mod15_cell0078",
+      "file": "mod15_cell0078.pla",
+      "inputs": 7,
+      "cubes": 2,
+      "occurrences": 21,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0079",
+      "file": "mod15_cell0079.pla",
+      "inputs": 7,
+      "cubes": 2,
+      "occurrences": 21,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0080",
+      "file": "mod15_cell0080.pla",
+      "inputs": 7,
+      "cubes": 2,
+      "occurrences": 21,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0081",
+      "file": "mod15_cell0081.pla",
+      "inputs": 3,
+      "cubes": 3,
+      "occurrences": 15,
+      "baseline_t": 4,
+      "baseline_qc": 7
+    },
+    {
+      "name": "mod15_cell0082",
+      "file": "mod15_cell0082.pla",
+      "inputs": 3,
+      "cubes": 2,
+      "occurrences": 15,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0083",
+      "file": "mod15_cell0083.pla",
+      "inputs": 7,
+      "cubes": 2,
+      "occurrences": 14,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0084",
+      "file": "mod15_cell0084.pla",
+      "inputs": 7,
+      "cubes": 2,
+      "occurrences": 14,
+      "baseline_t": 0,
+      "baseline_qc": 2
+    },
+    {
+      "name": "mod15_cell0085",
+      "file": "mod15_cell0085.pla",
+      "inputs": 6,
+      "cubes": 2,
+      "occurrences": 12,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0086",
+      "file": "mod15_cell0086.pla",
+      "inputs": 6,
+      "cubes": 2,
+      "occurrences": 12,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0087",
+      "file": "mod15_cell0087.pla",
+      "inputs": 6,
+      "cubes": 2,
+      "occurrences": 11,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0088",
+      "file": "mod15_cell0088.pla",
+      "inputs": 3,
+      "cubes": 4,
+      "occurrences": 10,
+      "baseline_t": 4,
+      "baseline_qc": 8
+    },
+    {
+      "name": "mod15_cell0089",
+      "file": "mod15_cell0089.pla",
+      "inputs": 5,
+      "cubes": 2,
+      "occurrences": 9,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0090",
+      "file": "mod15_cell0090.pla",
+      "inputs": 5,
+      "cubes": 3,
+      "occurrences": 8,
+      "baseline_t": 8,
+      "baseline_qc": 11
+    },
+    {
+      "name": "mod15_cell0091",
+      "file": "mod15_cell0091.pla",
+      "inputs": 6,
+      "cubes": 2,
+      "occurrences": 8,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0092",
+      "file": "mod15_cell0092.pla",
+      "inputs": 5,
+      "cubes": 3,
+      "occurrences": 8,
+      "baseline_t": 4,
+      "baseline_qc": 7
+    },
+    {
+      "name": "mod15_cell0093",
+      "file": "mod15_cell0093.pla",
+      "inputs": 6,
+      "cubes": 3,
+      "occurrences": 8,
+      "baseline_t": 4,
+      "baseline_qc": 7
+    },
+    {
+      "name": "mod15_cell0094",
+      "file": "mod15_cell0094.pla",
+      "inputs": 5,
+      "cubes": 2,
+      "occurrences": 7,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0095",
+      "file": "mod15_cell0095.pla",
+      "inputs": 5,
+      "cubes": 2,
+      "occurrences": 7,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0096",
+      "file": "mod15_cell0096.pla",
+      "inputs": 4,
+      "cubes": 4,
+      "occurrences": 7,
+      "baseline_t": 8,
+      "baseline_qc": 12
+    },
+    {
+      "name": "mod15_cell0097",
+      "file": "mod15_cell0097.pla",
+      "inputs": 4,
+      "cubes": 3,
+      "occurrences": 7,
+      "baseline_t": 8,
+      "baseline_qc": 11
+    },
+    {
+      "name": "mod15_cell0098",
+      "file": "mod15_cell0098.pla",
+      "inputs": 6,
+      "cubes": 2,
+      "occurrences": 7,
+      "baseline_t": 0,
+      "baseline_qc": 2
+    },
+    {
+      "name": "mod15_cell0099",
+      "file": "mod15_cell0099.pla",
+      "inputs": 6,
+      "cubes": 2,
+      "occurrences": 7,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0100",
+      "file": "mod15_cell0100.pla",
+      "inputs": 6,
+      "cubes": 3,
+      "occurrences": 7,
+      "baseline_t": 4,
+      "baseline_qc": 7
+    },
+    {
+      "name": "mod15_cell0101",
+      "file": "mod15_cell0101.pla",
+      "inputs": 5,
+      "cubes": 3,
+      "occurrences": 7,
+      "baseline_t": 8,
+      "baseline_qc": 11
+    },
+    {
+      "name": "mod15_cell0102",
+      "file": "mod15_cell0102.pla",
+      "inputs": 6,
+      "cubes": 3,
+      "occurrences": 7,
+      "baseline_t": 8,
+      "baseline_qc": 11
+    },
+    {
+      "name": "mod15_cell0103",
+      "file": "mod15_cell0103.pla",
+      "inputs": 6,
+      "cubes": 2,
+      "occurrences": 7,
+      "baseline_t": 0,
+      "baseline_qc": 2
+    },
+    {
+      "name": "mod15_cell0104",
+      "file": "mod15_cell0104.pla",
+      "inputs": 7,
+      "cubes": 2,
+      "occurrences": 7,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0105",
+      "file": "mod15_cell0105.pla",
+      "inputs": 6,
+      "cubes": 2,
+      "occurrences": 5,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0106",
+      "file": "mod15_cell0106.pla",
+      "inputs": 3,
+      "cubes": 3,
+      "occurrences": 5,
+      "baseline_t": 4,
+      "baseline_qc": 7
+    },
+    {
+      "name": "mod15_cell0107",
+      "file": "mod15_cell0107.pla",
+      "inputs": 5,
+      "cubes": 3,
+      "occurrences": 5,
+      "baseline_t": 8,
+      "baseline_qc": 11
+    },
+    {
+      "name": "mod15_cell0108",
+      "file": "mod15_cell0108.pla",
+      "inputs": 5,
+      "cubes": 4,
+      "occurrences": 5,
+      "baseline_t": 8,
+      "baseline_qc": 12
+    },
+    {
+      "name": "mod15_cell0109",
+      "file": "mod15_cell0109.pla",
+      "inputs": 4,
+      "cubes": 3,
+      "occurrences": 4,
+      "baseline_t": 0,
+      "baseline_qc": 3
+    },
+    {
+      "name": "mod15_cell0110",
+      "file": "mod15_cell0110.pla",
+      "inputs": 5,
+      "cubes": 2,
+      "occurrences": 4,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0111",
+      "file": "mod15_cell0111.pla",
+      "inputs": 5,
+      "cubes": 3,
+      "occurrences": 4,
+      "baseline_t": 4,
+      "baseline_qc": 7
+    },
+    {
+      "name": "mod15_cell0112",
+      "file": "mod15_cell0112.pla",
+      "inputs": 6,
+      "cubes": 2,
+      "occurrences": 3,
+      "baseline_t": 0,
+      "baseline_qc": 2
+    },
+    {
+      "name": "mod15_cell0113",
+      "file": "mod15_cell0113.pla",
+      "inputs": 6,
+      "cubes": 2,
+      "occurrences": 3,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0114",
+      "file": "mod15_cell0114.pla",
+      "inputs": 6,
+      "cubes": 2,
+      "occurrences": 3,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0115",
+      "file": "mod15_cell0115.pla",
+      "inputs": 5,
+      "cubes": 2,
+      "occurrences": 3,
+      "baseline_t": 0,
+      "baseline_qc": 2
+    },
+    {
+      "name": "mod15_cell0116",
+      "file": "mod15_cell0116.pla",
+      "inputs": 6,
+      "cubes": 3,
+      "occurrences": 2,
+      "baseline_t": 8,
+      "baseline_qc": 11
+    },
+    {
+      "name": "mod15_cell0117",
+      "file": "mod15_cell0117.pla",
+      "inputs": 6,
+      "cubes": 3,
+      "occurrences": 2,
+      "baseline_t": 8,
+      "baseline_qc": 11
+    },
+    {
+      "name": "mod15_cell0118",
+      "file": "mod15_cell0118.pla",
+      "inputs": 6,
+      "cubes": 3,
+      "occurrences": 2,
+      "baseline_t": 0,
+      "baseline_qc": 3
+    },
+    {
+      "name": "mod15_cell0119",
+      "file": "mod15_cell0119.pla",
+      "inputs": 5,
+      "cubes": 3,
+      "occurrences": 2,
+      "baseline_t": 4,
+      "baseline_qc": 7
+    },
+    {
+      "name": "mod15_cell0120",
+      "file": "mod15_cell0120.pla",
+      "inputs": 5,
+      "cubes": 3,
+      "occurrences": 1,
+      "baseline_t": 8,
+      "baseline_qc": 11
+    },
+    {
+      "name": "mod15_cell0121",
+      "file": "mod15_cell0121.pla",
+      "inputs": 6,
+      "cubes": 3,
+      "occurrences": 1,
+      "baseline_t": 0,
+      "baseline_qc": 3
+    },
+    {
+      "name": "mod15_cell0122",
+      "file": "mod15_cell0122.pla",
+      "inputs": 5,
+      "cubes": 3,
+      "occurrences": 1,
+      "baseline_t": 0,
+      "baseline_qc": 3
+    },
+    {
+      "name": "mod15_cell0123",
+      "file": "mod15_cell0123.pla",
+      "inputs": 5,
+      "cubes": 2,
+      "occurrences": 1,
+      "baseline_t": 0,
+      "baseline_qc": 2
+    },
+    {
+      "name": "mod15_cell0124",
+      "file": "mod15_cell0124.pla",
+      "inputs": 4,
+      "cubes": 2,
+      "occurrences": 1,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0125",
+      "file": "mod15_cell0125.pla",
+      "inputs": 4,
+      "cubes": 2,
+      "occurrences": 1,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0126",
+      "file": "mod15_cell0126.pla",
+      "inputs": 4,
+      "cubes": 3,
+      "occurrences": 1,
+      "baseline_t": 4,
+      "baseline_qc": 7
+    },
+    {
+      "name": "mod15_cell0127",
+      "file": "mod15_cell0127.pla",
+      "inputs": 5,
+      "cubes": 3,
+      "occurrences": 1,
+      "baseline_t": 8,
+      "baseline_qc": 11
+    },
+    {
+      "name": "mod15_cell0128",
+      "file": "mod15_cell0128.pla",
+      "inputs": 5,
+      "cubes": 2,
+      "occurrences": 1,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0129",
+      "file": "mod15_cell0129.pla",
+      "inputs": 5,
+      "cubes": 3,
+      "occurrences": 1,
+      "baseline_t": 4,
+      "baseline_qc": 7
+    },
+    {
+      "name": "mod15_cell0130",
+      "file": "mod15_cell0130.pla",
+      "inputs": 6,
+      "cubes": 2,
+      "occurrences": 1,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0131",
+      "file": "mod15_cell0131.pla",
+      "inputs": 6,
+      "cubes": 2,
+      "occurrences": 1,
+      "baseline_t": 4,
+      "baseline_qc": 6
+    },
+    {
+      "name": "mod15_cell0132",
+      "file": "mod15_cell0132.pla",
+      "inputs": 6,
+      "cubes": 3,
+      "occurrences": 1,
+      "baseline_t": 4,
+      "baseline_qc": 7
+    }
+  ]
+}

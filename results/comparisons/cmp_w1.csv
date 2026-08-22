@@ -1,0 +1,7 @@
+function,decomposed_baseline,baseline_pyzx,decomposed_factorized,factorized_pyzx,baseline_qubits,factorized_qubits,baseline_gates,factorized_gates,baseline_basic_gates,factorized_basic_gates,baseline_pyzx_qubits,factorized_pyzx_qubits,baseline_pyzx_gates,factorized_pyzx_gates,baseline_pyzx_seconds,factorized_pyzx_seconds
+exam1_d_100,0,0,0,0,6,6,5,5,5,5,6,6,6,6,0.746065616607666,0.7379415035247803
+majority_176,140,84,98,64,16,12,37,43,317,239,16,12,441,316,1.175704002380371,0.9672613143920898
+rd53f3_100,0,0,0,0,8,8,13,13,13,13,8,8,7,7,0.789229154586792,0.7488076686859131
+sao2f1_100,910,520,945,557,73,69,210,251,2030,2141,73,69,2554,3060,51.00184988975525,70.87403082847595
+sym10_d_100,7364,,6139,,498,358,1879,1744,16607,14022,,,,,600.0183882713318,600.0209231376648
+z42,308,180,301,189,29,27,89,100,705,702,29,27,908,979,3.013089895248413,3.033935308456421

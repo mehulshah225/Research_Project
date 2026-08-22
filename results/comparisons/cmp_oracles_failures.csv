@@ -1,0 +1,3 @@
+function,error_type,error
+majority11,baseline_pyzx_TIMEOUT,600.0
+majority11,factorized_pyzx_TIMEOUT,600.0
