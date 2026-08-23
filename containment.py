@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import os
-import time
 from math import comb
 from openpyxl import Workbook
 
@@ -10,12 +9,20 @@ from openpyxl import Workbook
 # Paths
 # ==========================================================
 
-BENCHMARK_DIR = "/home/mehul/Mehul/gitrepos/Research_Project/benchmarks"
+# Resolved relative to this file so the module works from any checkout.
+# Override with the RESEARCH_PROJECT_ROOT environment variable if the
+# benchmarks and results directories live elsewhere.
 
-RESULT_DIR = "/home/mehul/Mehul/gitrepos/Research_Project/results"
+REPO_ROOT = os.environ.get(
+    "RESEARCH_PROJECT_ROOT",
+    os.path.dirname(os.path.abspath(__file__)),
+)
+
+BENCHMARK_DIR = os.path.join(REPO_ROOT, "benchmarks")
+
+RESULT_DIR = os.path.join(REPO_ROOT, "results")
 
 OUTPUT_FILE = "pla_metrics.xlsx"
-
 
 
 # ==========================================================
@@ -104,7 +111,6 @@ def parse_file(filename):
     }
 
 
-
 # ==========================================================
 # Weighted Shared Support Density (SSD)
 # ==========================================================
@@ -167,7 +173,6 @@ def collect_extension(folder, extension):
     return files
 
 
-
 def collect_final(folder):
 
     files = {}
@@ -195,68 +200,64 @@ def collect_final(folder):
     return files
 
 
-
 # ==========================================================
 # Load all files
 # ==========================================================
 
 
-original_files = collect_extension(
-    BENCHMARK_DIR,
-    ".pla"
-)
-
-
-esop_files = collect_extension(
-    os.path.join(RESULT_DIR,"esop"),
-    ".esop"
-)
-
-
-final_files = collect_final(
-    os.path.join(RESULT_DIR,"final_parser")
-)
-
-
-
-# ==========================================================
-# Excel
-# ==========================================================
-
-wb = Workbook()
-
-ws = wb.active
-
-ws.title = "Metrics"
-
-
-
-ws.append([
-
-    "Benchmark",
-
-    "Orig Cubes",
-    "Orig Literals",
-    "Orig SSD",
-
-    "ESOP Cubes",
-    "ESOP Literals",
-    "ESOP SSD",
-
-    "FINAL Cubes",
-    "FINAL Literals",
-    "FINAL SSD"
-
-])
-
-
-
-# ==========================================================
-# Process benchmark by benchmark
-# ==========================================================
-
-
 def main():
+
+    # Loaded here rather than at import time, so that importing
+    # parse_file / compute_ssd from run_all.py costs nothing.
+
+    original_files = collect_extension(
+        BENCHMARK_DIR,
+        ".pla"
+    )
+
+    esop_files = collect_extension(
+        os.path.join(RESULT_DIR, "esop"),
+        ".esop"
+    )
+
+    # was referenced by main() but never defined
+    eosop_files = collect_extension(
+        os.path.join(RESULT_DIR, "eosops"),
+        ".eosops"
+    )
+
+    final_files = collect_final(
+        os.path.join(RESULT_DIR, "final_parser")
+    )
+
+    wb = Workbook()
+
+    ws = wb.active
+
+    ws.title = "Metrics"
+
+    ws.append([
+
+        "Benchmark",
+
+        "Orig Cubes",
+        "Orig Literals",
+        "Orig SSD",
+
+        "ESOP Cubes",
+        "ESOP Literals",
+        "ESOP SSD",
+
+        "EOSOPS Cubes",
+        "EOSOPS Literals",
+        "EOSOPS SSD",
+
+        "FINAL Cubes",
+        "FINAL Literals",
+        "FINAL SSD"
+
+    ])
+
     for name in sorted(original_files.keys()):
 
         print("\n")
@@ -264,7 +265,7 @@ def main():
         print("Benchmark:", name)
         print("="*90)
 
-        row = []
+        row = [name]
 
         methods = [
             ("Original", original_files),
