@@ -1,10 +1,6 @@
 # EXORCISM-5: Factorized Boolean Representations for Quantum Circuit Synthesis
 
-Implementation, benchmarks, and evaluation code accompanying "Factorized Boolean
-representations for efficient quantum synthesis." This repository takes ESOP
-expressions from EXORCISM-4 and applies a two-stage factorization that reduces
-quantum cost and T-count by extracting shared computational structure, at a
-cost of at most two auxiliary qubits.
+Implementation, benchmarks, and evaluation code accompanying "Factorized Boolean representations for efficient quantum synthesis" (arXiv:2608.27430). This repository takes ESOP expressions from EXORCISM-4 and applies a two-stage factorization that reduces quantum cost and T-count by extracting shared computational structure, at a cost of at most two auxiliary qubits.
 
 **These numbers supersede any earlier statement in this repository or its
 history.** All figures below are from the results deposited in this repo,
@@ -220,8 +216,24 @@ results_modcells.xlsx   deposited results for the compositional cells,
 
 ## Citation
 
-If you use this repository, please cite the accompanying manuscript
-(citation to be added on publication) rather than this repository directly.
+Please cite the preprint rather than this repository directly:
+
+> Shah, M., Fiszer, R. & Perkowski, M. Factorized Boolean representations for
+> efficient quantum synthesis. Preprint at https://arxiv.org/abs/2608.27430 (2026).
+
+```bibtex
+@misc{shah2026factorized,
+  title         = {Factorized Boolean representations for efficient quantum synthesis},
+  author        = {Shah, Mehul and Fiszer, Robert and Perkowski, Marek},
+  year          = {2026},
+  eprint        = {2608.27430},
+  archivePrefix = {arXiv},
+  primaryClass  = {quant-ph},
+  doi           = {10.48550/arXiv.2608.27430}
+}
+```
+
+This entry will be updated if the work appears in a journal.
 
 ## Contact
 
