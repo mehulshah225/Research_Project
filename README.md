@@ -17,10 +17,10 @@ adder and majority-function families):
 
 | | median quantum-cost reduction | median T-count reduction |
 |---|---|---|
-| Structured benchmarks (37) | 49.7% | 35.4% |
-| Random 100-variable functions (14) | 32.9% | 24.0% |
-| Oracles — Shor / adder / majority (13) | 61.9% | 38.5% |
-| **All 64 functions** | **42.7%** | **28.6%** |
+| Structured benchmarks (37) | 47.0% | 35.4% |
+| Random 100-variable functions (14) | 32.8% | 24.0% |
+| Oracles — Shor / adder / majority (13) | 60.6% | 38.5% |
+| **All 64 functions** | **41.9%** | **28.6%** |
 
 No function increased in quantum cost or T-count; eight were left exactly
 unchanged. Auxiliary qubit use never exceeded two, regardless of function size.
@@ -78,6 +78,11 @@ all of them in the repository root. For each PLA file in `benchmarks/`:
 6. **`maslov`** evaluates quantum cost, T-count (4(n−1) per n-control gate,
    an AND-tree of measurement-assisted AND gates), gate count, maximum
    control count, and auxiliary qubit peak/total, on every stage's output.
+   Quantum cost is 2^(n+1)−3 per n-control gate up to ten controls, continued
+   linearly (+1024 per control) beyond that; every negated literal costs 2,
+   on a factored term's shared factor as well as on its residuals, and the
+   ancilla control of a factored term is charged. Set `COST_MODEL 2` in
+   `maslovCalculator.c` for the auxiliary-qubit-aware model (10(n−2)).
 7. **`containment.py`** supplies the structural metrics. `parse_file()` reads
    any stage's PLA/ESOP/EOSOPS/FINAL output and returns the variable count,
    declared cube count, literal count and cube list. `compute_ssd()` computes
@@ -98,6 +103,9 @@ Regenerates `results.xlsx` (sheets: Maslov Cost, T-Count, Resources,
 Structure) and prints a summary including equivalence pass/fail counts. Takes
 well under a minute for the full 64-function suite (representation-level
 synthesis, not circuit export — see the timing note below).
+
+Figure 2 of the paper is regenerated from `results.xlsx` with
+`python make_fig2.py results.xlsx fig2.png`.
 
 ### Part 3 — circuit export and comparison with PyZX (`run_comparison.py`)
 

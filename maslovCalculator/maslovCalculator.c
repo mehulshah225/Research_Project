@@ -25,10 +25,11 @@
  * T_MODEL 2 : T(2)=7, T(n>=3)=8n-16   unitary relative-phase
  *                                (Maslov 2016). Keeps the kink.
  *
- * Why model 1 cannot regress: a polarity merge turns cubes of size
- * |L|+|R1| and |L|+|R2| into gates of size |L|, |R1|, |R2|, saving
- * exactly 4(|L|+1) T gates; a containment merge saves 4|L|. Both are
- * strictly positive, so T-count never increases.
+ * Why model 1 cannot regress (Theorem 4.2 of the paper): a shared-factor
+ * merge turns cubes with |L|+|R1| and |L|+|R2| controls into gates with
+ * |R1|, |R2| and |L|+1 controls (the +1 is the ancilla), saving exactly
+ * 4|L| T gates; a containment merge turns |L| and |L|+|R| controls into
+ * |R| and |L|+1, saving exactly 4(|L|-1). Neither is ever negative.
  * ================================================== */
 #define T_MODEL 1
 
@@ -58,8 +59,10 @@ int t_count(int k)                 /* k = number of controls */
 }
 
 /* ==================================================
- * MASLOV MODEL - UNCHANGED from your original.
- * No ancilla control is charged, no negations on L.
+ * QUANTUM COST MODEL
+ * The ancilla control on a factored term is charged (ANCILLA_CONTROL),
+ * and every negated literal is charged 2, on the shared factor L as well
+ * as on the residuals, exactly as in the conventional ESOP realization.
  * ================================================== */
 /* COST_MODEL 1 = ancilla-free, 2^(n+1)-3 (the conventional Maslov table)
    COST_MODEL 2 = ancilla-based, an n-control Toffoli as 2(n-2) Toffolis ~ 10(n-2)
@@ -85,6 +88,9 @@ int toffoli_cost(int controls)
         case 6: return 125;
         case 7: return 253;
         case 8: return 509;
+        /* 2^(n+1)-3 up to 10 controls; beyond that the cost continues
+           linearly at the last increment (1024 per control) instead of
+           doubling, so 100-variable functions stay finite. */
         default: return 1021 + (controls - 9) * 1024;
     }
 #endif
@@ -136,8 +142,9 @@ int esop_tcount(const char *cube)
 }
 
 /* ---------------- PSE ----------------
-   Cost identical to your original: every cube billed as its own
-   gate, no ancilla control, negations charged on residuals only. */
+   A factored term L(R1 (+) R2 ...): each residual is its own gate, the
+   output gate has |L| controls plus the ancilla, and negated literals are
+   charged 2 each on L and on every residual. */
 int pse_cost(const char *L, char res[][128], int n_res)
 {
 #if ANCILLA_CONTROL
@@ -145,7 +152,7 @@ int pse_cost(const char *L, char res[][128], int n_res)
 #else
     int cost = toffoli_cost(count_fixed_controls(L));
 #endif
-    int negs = 0;
+    int negs = count_negations(L);   /* shared factor's negations */
 
     for (int i = 0; i < n_res; i++)
     {
