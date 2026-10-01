@@ -107,6 +107,12 @@ synthesis, not circuit export — see the timing note below).
 Figure 2 of the paper is regenerated from `results.xlsx` with
 `python make_fig2.py results.xlsx fig2.png`.
 
+Figure 3 is regenerated with `python make_fig3.py fig3.png`. Its qubit counts
+assume the decomposition workspace is reused: `export_qasm.py --decompose`
+allocates fresh workspace for every decomposed gate, so the exported circuits
+used for the PyZX measurements are much wider than a reusing allocator would
+need. `make_fig3.py` obtains the reuse counts from the exporter itself.
+
 ### Part 3 — circuit export and comparison with PyZX (`run_comparison.py`)
 
 This is a **separate, optional** step that exports both representations to
