@@ -2,23 +2,24 @@
 """
 Reference generator for the synthetic 100-variable benchmark family.
 
-The distributed instances (benchmarks/synth_benchmarks/f_100_*.pla) were produced
-by this model: each of the n positions of each product term is drawn
+The distributed instances (benchmarks/synth_benchmarks/f_100_*.pla) are
+consistent with this model: each of the n positions of each product term is drawn
 independently and uniformly from {'-', '0', '1'}, so a variable appears in a
 term with probability 2/3 and, when it appears, with either polarity equally
 often.
 
-The model was confirmed against the distributed files: over 560,000 positions
+The model was checked against the distributed files: over 560,000 positions
 the observed frequencies are 33.40% / 33.23% / 33.37%, giving chi-square = 2.9
 against a uniform null (critical value 9.21 at p = 0.01, 2 d.f.).
 
-Reproducing the family:
+Usage:
 
     python generate_synthetic.py            # writes 14 files to synth_benchmarks/
 
-Instances are named f_100_<terms>-<index>.pla and use seed = index, so
-f_100_400-2.pla is generated with 400 terms and seed 2. Duplicate terms are
-rejected on generation, since a repeated term would cancel under XOR.
+This generates new instances from the same model. It does not reproduce the
+deposited f_100_* files: their exact generation settings are not recorded,
+and the deposited files, not this script's output, are the ones used in the
+paper.
 """
 import os
 import random

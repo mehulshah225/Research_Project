@@ -36,6 +36,21 @@ circuits built compositionally rather than from truth tables; see
 
 ---
 
+## Benchmark sources
+
+| group | count | source |
+|---|---|---|
+| Structured, RevLib | 8 | [RevLib](https://revlib.org): `4gt10_22`, `4mod5_8`, `alu_9`, `majority_176`, `mux_185`, `ryy6_198`, `sf_232`, and `6sym` (RevLib `sym6`, reformatted) |
+| Structured, PLA collection | 29 | [Perkowski's PLA benchmark page](https://web.cecs.pdx.edu/~mperkows/PLA_BENCHMARKS/) (single-output functions from the MCNC suite), in the fully specified `_100` versions prepared by Fiszer (2014), together with `eosops1`, `xor8` and `z42` from the same work |
+| Random 100-variable | 14 | `benchmarks/synth_benchmarks/`; statistically consistent with the uniform model in `generate_synthetic.py` (chi-square 2.9 over 560,000 positions) |
+| Oracles | 13 | generated from their definitions; see `benchmarks/oracle_pla/README.md` |
+| Compositional cells | 541 | generated; `benchmarks/mod_cells_pla/`, with a `census.json` per modulus width |
+
+`eosops1` was constructed in Fiszer's thesis as a function that synthesizes
+well with PSE gates, so it is favourable to this method.
+
+---
+
 ## Pipeline
 
 The pipeline runs in two separately-invoked parts: `run_all.py` builds and
@@ -211,7 +226,8 @@ containment.py          PLA/ESOP parsing and Shared Support Density metric,
 verify_equivalence.py   standalone equivalence checker (also called by run_all.py)
 export_qasm.py          representation -> OpenQASM 2.0
 run_comparison.py       PyZX comparison harness
-generate_synthetic.py   regenerates the 14 random 100-variable benchmarks (seeded)
+generate_synthetic.py   generator for the uniform random model (does not reproduce
+                          the deposited f_100_* files byte for byte)
 run_all.py              full pipeline driver
 exorcism4.exe           EXORCISM-4 ESOP minimizer
 results.xlsx            deposited results for the 64-function suite,
